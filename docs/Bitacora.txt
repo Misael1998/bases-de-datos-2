@@ -1,0 +1,19 @@
+(1):Bloque campo repetido en la tabla estadistica baloncesto(Hecho)
+(2):Robos campo repetido en la tabla estadistica baloncesto(Hecho)
+(3):Balones perdidos campo repetido en la tabla estadistica baloncesto(Hecho)
+(4):Revision de estandar de los nombres de tabla, llaves y campos(Hecho)
+------------------------------------------------------------------------
+Cambios realizados 06/11/2019
+(5)Realizar el cambio de la relacion con EstadisticasBaseball, EstadistiasFutbol
+EstadisticasBaloncesto, dado que no se tenia ninguna asociacion que nos dijiese 
+que un equipo tenia ciertas para dertminada partido(Hecho en el equema)
+(6)Añadir un campo para hacer la distincion de si un equipo es local o se encuentra
+de visitante (Hecho)
+(7)Añadir un campo para el estadio en el que se va jugar determinado partido, 
+recordar que no se pueda hacer la deduccion del estadio para saber si un equipo sera local 
+o no porque en ocasiones los partidos no se juegan en la localia de ninguno de los dos equipos
+o tambien puede que se de un partido en el cual ambos equipos sean local en ese estadio(Hecho)
+(8)Realizar el cambio de los id's que se encuentran escritos en plural campos 
+identificados de esta manera estadisticaBaseball, estadisticaFutbol, estadisticaBaloncesto
+
+------------------------------------------------------------------------------------ 

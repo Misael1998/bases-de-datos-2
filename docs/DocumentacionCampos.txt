@@ -1,0 +1,77 @@
+--Sujeto a mejoras
+
+Abreviaturas
+	Campo con nombre explicito(CNE): No es necesario realizar una descripcion del campo, el nombre ya describe cual es la funcion de la misma
+	PE Por estudiar: Conceptos no entendidos
+Tablas
+	(1)Persona
+		Informacion varia, se realiza la generalizacion para las tablas de jugador, director tecnico y referee al poseer los mismos campos
+		pNombre: Primer Nombre 
+		sNombre: Segundo nombre 
+		pApellido: primerApellido
+		sApellido: Segundo Apellido
+		fechaNacimiento: CNE
+		paisNacimiento: CNE 
+	(2)Jugador
+		Dorsal:Numero de camiseta del jugador
+		fechaDebut: CNE
+		sueldo: CNE
+	(3)DirectorTecnico 
+		fechaDebut: CNE
+	(4)Referee
+		fechaDebut:CNE
+		fechaRetiro:CNE 
+	(5)Equipo
+		nombre: Nombre del equipo 
+		fechaFundacion: CNE
+	(6)EstadisticasBaloncesto
+		tirosHechos: Tiros realizados por un equipo, esto hace referencia solo a los tiros realizados, sin importar si fueron anotados o no
+		tirosAnotados: CNE
+		triplesHechos: Misma representacion que con tirosHechos
+		triplesAnotados: CNE
+		tirosLibresHechos:  Tiros libres realizados, sin importar el final
+		Asistencia: Pases por compañero que terminaron en canasta
+		Bloqueos: Intentos de encestar a canasta que fueron bloqueados por un jugador del equipo contrario 
+		Robos: Robos de balon al equipo contrario
+		balonesPerdidos: Robos de balon del equipo rival
+		rebotes: Un rebote es aquella accion al fallar un intento de canasta uno de los dos equipos recoge ese intento de tiro
+		rebotesOfensivos: Rebote por parte de uno de los jugadores que realizo el intento a tiro
+		puntosEnLaPintura: Anotaciones por parte de un equipo en el area del semicirculo al que pertenece el area de tiro libre
+		faltasPersonales: CNE
+		minutos: Referente a los minutos jugados por un determinado jugador 
+	(7)EstadisticasBaseball
+		aBase: Cantidad de ocasiones que tuvo un jugador o un equipo para batear
+		carreras: Se traduce en anotaciones
+		hits: Intentos de bateo realizados 
+		basePorBola: Oportunidad de moverser a primera base por errores en el pitcheo
+		carrerasPermitidas: Cantidad de carreras que permitio un pitcher 
+		inningsLanzados: CNE 
+		hitsPermitidos: Asociado a las estadisticas del pitches, que hace referencia a cuantas bolas lanzadas por el mismo terminaron en un hit
+		carrerasLimpias: PE
+	(8)EstadisticasFutbol
+		Remates: Cantidad de remates que realiza un equipo, tomando en cuenta aquellos que van fuera de porteria 
+		rematesAlArco:CNE
+		posesion: Porcentaje de posesion de un equipo con el balon 
+		pases: CNE
+		precisionPases: CNE
+		faltas:CNE
+		tarjetasAmarillas:CNE 
+		tarjetasRojas:CNE
+		goles:CNE
+		posicionAdelantada:CNE 
+		tiroEsquina:CNE
+		alineacionInicial: Con que esquema sale a jugar el equipo
+	(9)Parcial
+		**Esta tabla hace referencia a los lapsus de tiempo que tienen los deportes, es decir en baloncesto se juegan 4 cuartos de 12 minutos(Para la NBA)
+		**Para futbol 11 se juega 2 tiempo de 45 minutos
+		**Para baseball se juegan 9 innings 
+		**Es necesario una tabla que guarde estos lapsus de tiempo debido a la variacion que puede haber para cada uno de los deportes
+		**es decir en baloncesto hay 4 cuartos de 12 minutos obligatorios, pero de haber un empate a la finalizacion del 4 cuarto
+		**se extendera una prorroga, de igual manera para el baseball si hay un empate para el 9no inning se extendera a un 10 inning 
+		**de ser necesario hasta que el partido se desempate
+	(10)Liga
+	(11)Fase	
+	(12)Partido
+	
+
+
