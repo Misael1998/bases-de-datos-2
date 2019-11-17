@@ -72,6 +72,13 @@ Tablas
 	(10)Liga
 	(11)Fase	
 	(12)Partido
+	(13)FaseLIga
+		**idFase
+		**idLiga
+		**Anio: Campo Eliminado
+		**fechaFin
+		**fechaInicio
+	(14)
 	
-
+	
 

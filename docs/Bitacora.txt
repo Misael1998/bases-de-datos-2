@@ -15,5 +15,19 @@ o no porque en ocasiones los partidos no se juegan en la localia de ninguno de l
 o tambien puede que se de un partido en el cual ambos equipos sean local en ese estadio(Hecho)
 (8)Realizar el cambio de los id's que se encuentran escritos en plural campos 
 identificados de esta manera estadisticaBaseball, estadisticaFutbol, estadisticaBaloncesto
-
 ------------------------------------------------------------------------------------ 
+Cambios Realizados 07/11/2019
+(9)En el esquema no estaba detallada una relacion entre las estadisticasBaseball y 
+un identificador del jugador(Por alguna razon en el script si X'DDD)(Hecho)
+(10)[ScriptProyecto]Se realizo un cambio al esquema de la base de datos, dado que no se llevaba registro 
+de las estadisticas que puede llegar a tener un jugador correspondiente a los diferentes equipos con los que puede llegar 
+a jugar(Hecho) 
+------------------------------------------------------------------------------------
+Cambios Realizados 08/11/2019
+(11)[ScriptProyecto]Tabla FaseLiga se elimino el campo llamado fecha y se tiene que añadir los campos de inicio de
+temporada(FechaInicio) y finalizacion de temporada(fechaFin)
+------------------------------------------------------------------------------------
+Cambios Realizados 12/11/2019
+(12)Se añadio una tabla deporte para realizar el filtrado de la busqueda por esta tabla y no por un campo dentro de 
+la tabla equipo 
+(13)Creacion de la llave foranea en la tabla Equipo
