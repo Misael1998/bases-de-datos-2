@@ -1,13 +1,9 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 -- =============================================
 -- Author:		<Author,,Name>
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE FUNCTION FT_MejoresAnotadores 
+ALTER FUNCTION FT_MejoresAnotadores 
 (
 	@idDeporte INT, 
 	@idTemporada INT
@@ -17,7 +13,7 @@ RETURNS @MejoresJugadores TABLE
 (
 	idEquipo INT,
 	nombreEquipo VARCHAR(50),
-	cantidadAnotaciones INT,
+	cantidadAnotaciones INT
 )	
 AS
 BEGIN
@@ -27,12 +23,6 @@ BEGIN
 	-- Y TABLAS TEMPORALES 
 	-- ---------------------------------------------------------------------
 	DECLARE @nombreDeporte VARCHAR(50)
-	CREATE TABLE #tblTemporal
-	(
-		idEquipo INT, 
-		nombre INT, 
-		cantitdadAnotaciones INT,
-	)
 	-- ---------------------------------------------------------------------
 	-- CAPTURA DEL DEPORTE NOMBRE DEL DEPORTE PARA PODER REALIZAR LA 
 	-- CONSULTA DESDE AHI 
@@ -48,7 +38,7 @@ BEGIN
 	-- ---------------------------------------------------------------------
 	IF(UPPER(@nombreDeporte) = 'BALONCESTO' or UPPER(@nombreDeporte) = 'BASKETBALL') 
 			BEGIN
-			INSERT INTO #tblTemporal
+			INSERT INTO @MejoresJugadores
 					SELECT TOP 10 
 					equ.idEquipo,
 					equ.nombre,
@@ -64,7 +54,7 @@ BEGIN
 
 	IF(UPPER(@nombreDeporte) = 'FOOTBALL' or UPPER(@nombreDeporte) = 'BALONCESTO')
 		BEGIN 
-			INSERT INTO #tblTemporal 
+			INSERT INTO @MejoresJugadores
 				SELECT TOP 10
 					equ.idEquipo,
 					equ.nombre,
@@ -81,7 +71,7 @@ BEGIN
 
 	IF(UPPER(@nombreDeporte) = 'BASEBALL')
 		BEGIN 
-			INSERT INTO #tblTemporal
+			INSERT INTO @MejoresJugadores
 				SELECT 
 					equ.idEquipo,
 					equ.nombre,
@@ -91,7 +81,7 @@ BEGIN
 						INNER JOIN [ScriptProyecto].[dbo].[Parcial] par ON par.idEstadisticasBaseball = esba.idEstadisticaBaseball
 							GROUP BY equ.nombre,equ.idEquipo
 		END
-
+	RETURN
 END
 GO
 

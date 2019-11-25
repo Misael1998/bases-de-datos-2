@@ -3,7 +3,8 @@ Enunciado sobre enunciados a realizar
 (1)Calculo del promedio de anotaciones de todos los partidos de la liga 
 para una determinada temporada (Hecho)
 -------------------------------------------------------------------------
-(2)--Eliminado
+(2)Funcion que calcula para un equipo la estadistica de los ultimos 10 partidos 
+y ademas se le añada una columna que evalue si este partido se gano o se perdio
 -------------------------------------------------------------------------
 (3)Calculo del promedio de expulsiones por equipo (Esto para deportes como
 baloncesto y futbol)(Objeto de estudio)
@@ -22,8 +23,9 @@ baloncesto y futbol)(Objeto de estudio)
 la ultima temporada
 -------------------------------------------------------------------------
 (10)Creacion de una funcion de tabla que envie una a los jugadores con mas 
-anotaciones en un partido, con su idJugador, anotaciones, equipo (FuncionTabla)
+anotaciones en un partido, con su idJugador, anotaciones, equipo (FuncionTabla)(HECHO)
 -------------------------------------------------------------------------
+
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 CREACION DE ENUNCIADO DE FUNCIONES A POSTERIOR, PARA REALIZAR FUNCIONES,
