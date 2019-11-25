@@ -1,0 +1,441 @@
+[1mdiff --git a/docs/Bitacora.txt b/docs/Bitacora.txt[m
+[1mindex 74066a7..a47a8c5 100644[m
+[1m--- a/docs/Bitacora.txt[m
+[1m+++ b/docs/Bitacora.txt[m
+[36m@@ -8,7 +8,7 @@[m [mCambios realizados 06/11/2019[m
+ EstadisticasBaloncesto, dado que no se tenia ninguna asociacion que nos dijiese [m
+ que un equipo tenia ciertas para dertminada partido(Hecho en el equema)[m
+ (6)Añadir un campo para hacer la distincion de si un equipo es local o se encuentra[m
+[31m-de visitante (Hecho)[m
+[32m+[m[32mde visitante (Hecho), se[m[41m[m
+ (7)Añadir un campo para el estadio en el que se va jugar determinado partido, [m
+ recordar que no se pueda hacer la deduccion del estadio para saber si un equipo sera local [m
+ o no porque en ocasiones los partidos no se juegan en la localia de ninguno de los dos equipos[m
+[36m@@ -31,3 +31,14 @@[m [mCambios Realizados 12/11/2019[m
+ (12)Se añadio una tabla deporte para realizar el filtrado de la busqueda por esta tabla y no por un campo dentro de [m
+ la tabla equipo [m
+ (13)Creacion de la llave foranea en la tabla Equipo[m
+[32m+[m[32m------------------------------------------------------------------------------------[m[41m[m
+[32m+[m[32mCambios realizados 15/11/2019[m[41m[m
+[32m+[m[32m(14)Cambio en el que se realiza el cambio de Liga con FaseLiga (Dado que es una mala relacion), entonces se conecta Liga a temporada[m[41m[m
+[32m+[m[32mcon la finalidad de saber en que temporada esta determinada liga, y se realiza la relacion de temporada a fase, para tener el dato[m[41m [m
+[32m+[m[32mde cuando una liga va estar en determinada temporada[m[41m[m
+[32m+[m[32m(15)En el primer script no estaba la llave foranea que hace la relacion de Fase a partido[m[41m [m
+[32m+[m[32m------------------------------------------------------------------------------------[m[41m[m
+[32m+[m[32mCambios realizados[m[41m[m
+[32m+[m[32m(16)Se necesita una relacion de jugador a deporte, por razon de escabilidad hasta el momento la base de datos solo maneja[m[41m [m
+[32m+[m[32mestadisticas de Baseball, Fubtol y Baloncesto. Pero si en un futuro se ve la necesidad de agregarse un nuevo deporte como boxeo[m[41m[m
+[32m+[m[32mno se podra realizar la obtecion de datos para un peleador porque este no posee un equipo[m
+\ No newline at end of file[m
+[1mdiff --git a/docs/EnunciadoFunciones.txt b/docs/EnunciadoFunciones.txt[m
+[1mindex 7cb5a92..d963d7a 100644[m
+[1m--- a/docs/EnunciadoFunciones.txt[m
+[1m+++ b/docs/EnunciadoFunciones.txt[m
+[36m@@ -1,26 +1,31 @@[m
+ Enunciado sobre enunciados a realizar[m
+ -------------------------------------------------------------------------[m
+ (1)Calculo del promedio de anotaciones de todos los partidos de la liga [m
+[31m-para la temporada actual[m
+[32m+[m[32mpara una determinada temporada (Hecho)[m[41m[m
+ -------------------------------------------------------------------------[m
+[31m-(2)Calculo del promedio de anotaciones de un equipo para todos los partidos[m
+[31m-de la liga[m
+[32m+[m[32m(2)--Eliminado[m[41m[m
+ -------------------------------------------------------------------------[m
+ (3)Calculo del promedio de expulsiones por equipo (Esto para deportes como[m
+[31m-baloncesto y futbol)[m
+[32m+[m[32mbaloncesto y futbol)(Objeto de estudio)[m[41m[m
+ -------------------------------------------------------------------------[m
+[31m-(4)Conversion de fecha al formato manejado por la base de datos[m
+[32m+[m[32m(4)Eliminado[m[41m[m
+ -------------------------------------------------------------------------[m
+[31m-(5)Calculo de la temperatura promedio dentro del ultimo mes para[m
+[31m-el estadio X[m
+[32m+[m[32m(5)[m[41m[m
+ -------------------------------------------------------------------------[m
+[31m-(6)[m
+[32m+[m[32m(6)Porcentaje de victorias que posee un equipo jugando como local[m[41m [m
+ -------------------------------------------------------------------------[m
+[31m-(7)[m
+[32m+[m[32m(7)Funcion de conversion de int a date (Sin fecha)(Hecho)[m[41m[m
+ -------------------------------------------------------------------------[m
+[31m-(8)[m
+[32m+[m[32m(8)Funcion de conversion de int a date (Con fecha)[m[41m[m
+ -------------------------------------------------------------------------[m
+[31m-(9)[m
+[32m+[m[32m(9)Calculo de los jugadores con mas porcentaje de anotaciones para la actual temporada o para[m[41m[m
+[32m+[m[32mla ultima temporada[m[41m[m
+ -------------------------------------------------------------------------[m
+[31m-(10)[m
+[31m--------------------------------------------------------------------------[m
+\ No newline at end of file[m
+[32m+[m[32m(10)Creacion de una funcion de tabla que envie una a los jugadores con mas[m[41m [m
+[32m+[m[32manotaciones en un partido, con su idJugador, anotaciones, equipo (FuncionTabla)[m[41m[m
+[32m+[m[32m-------------------------------------------------------------------------[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!![m[41m[m
+[32m+[m[32mCREACION DE ENUNCIADO DE FUNCIONES A POSTERIOR, PARA REALIZAR FUNCIONES,[m[41m[m
+[32m+[m[32mQUE ESTEN RELACIONADAS CON EL DATAWAREHOUSE[m[41m[m
+[32m+[m[32m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!![m[41m[m
+[1mdiff --git a/modelos/EsquemaBaseDeDatos .pdf b/modelos/EsquemaBaseDeDatos .pdf[m
+[1mdeleted file mode 100644[m
+[1mindex a8dd888..0000000[m
+[1m--- a/modelos/EsquemaBaseDeDatos .pdf[m	
+[1m+++ /dev/null[m
+[36m@@ -1,55 +0,0 @@[m
+[31m-     Persona                                           DirectorTecnico                           FaseLiga                   Liga                                Estadio[m
+[31m-   idPersona INT                                       idDirectorTecnico INT                idFase INT                    idLiga INT                          idEstadio INT[m
+[31m-   pNombre VARCHAR(50)                                 fechaDebut VARCHAR(50)               idLiga INT                    Pais VARCHAR(50)                    nombre VARCHAR(50)[m
+[31m-   sNombre VARCHAR(50)                                 DirectorTecnicocol VARCHAR(45)                                     cantidadDeEquipos VARCHAR(45)       capacidad INT[m
+[31m-   pApellido VARCHAR(50)                               idPersona INT                           Anio YEAR                  cantidadDescendidos VARCHAR(45)     altura DOUBLE[m
+[31m-   sApellido VARCHAR(50)                            Indexes                                 Indexes                                                           temperaturaPromedio DOUBLE[m
+[31m-   fechaDeNacimiento VARCHAR(45)                                                                                       Indexes                                Pais VARCHAR(50)[m
+[31m-   paisNacimiento VARCHAR(45)          Referee                                              Fase                                                           Indexes[m
+[31m-Indexes                              idReferee INT                                        idFase INT[m
+[31m-                                     fechaDebut DATE                                      nombre VARCHAR(45)                                                    Partido[m
+[31m-        Jugador                      fechaRetiro DATE                                     descripcion VARCHAR(200)                                            idPartido INT[m
+[31m-      idJugador INT                  idPersona INT                                     Indexes                                                                fechaLugar DATE[m
+[31m-      Dorsal VARCHAR(45)          Indexes                                                                                                                     horaInicio TIME[m
+[31m-      fechaDebut VARCHAR(45)                                                                                                                                  Referee_idReferee INT[m
+[31m-      sueldo DOUBLE                                                                                                                                           idFase INT[m
+[31m-      idPersona INT                                                                                                                                           idEstadio INT[m
+[31m-      idEquipo INT                                                                                                                                            idEstadisticaBaloncesto INT[m
+[31m-                                                                                                                                                              idEstadisticasFutbol INT[m
+[31m-   Indexes                                                                                                                                                    idEstadisticasBaseball INT[m
+[31m-[m
+[31m-                                                                                                                                                           Indexes[m
+[31m-[m
+[31m-                                                                                            Equipo[m
+[31m-                                                                                          idEquipo INT[m
+[31m-                                                                                          nombre VARCHAR(50)[m
+[31m-                                                                                          fechaFundacion VARCHAR(45)[m
+[31m-[m
+[31m-                                                                                       Indexes[m
+[31m-[m
+[31m-                                       Parcial                                              EstadisticaBaloncesto           EstadisticasFutbol                  EstadisticasBaseball[m
+[31m-                                     idCuarto INT                                         idEstadisticaBaloncesto INT     idEstadisticasFutbol INT            idEstadisticasBaseball INT[m
+[31m-                                     numero INT                                           tirosHechos INT                 Remates INT                         aBase INT[m
+[31m-                                     puntos INT                                           tirosAnotados INT               rematesAlArco INT                   carrera INT[m
+[31m-                                     idEstadisticaBaloncesto INT                          triplesHechos INT               posesion INT                        hits INT[m
+[31m-                                     idEstadisticasFutbol INT                             triplesAnotados INT             pases INT                           basePorBola INT[m
+[31m-                                     idEstadisticasBaseball INT                           tirosLibresHechos INT           precisionPases INT                  carrerasPermitidas INT[m
+[31m-                                                                                          tirosLibresAnotados INT         faltas INT                          inningsLanzados INT[m
+[31m-                                  Indexes                                                 Asistencia INT                  tarjetasAmarillas INT               hitsPermitidos INT[m
+[31m-                                                                                          bloqueos INT                    tarjetasRojas INT                   carrerasLimpias INT[m
+[31m-                                                                                          robos INT                       goles INT                           ponches INT[m
+[31m-                                                                                          balonesPerdidos INT             posicionAdelantada INT              idEquipo INT[m
+[31m-                                                                                          rebotes INT                     tirosEsquina INT                    localia VARCHAR(1)[m
+[31m-                                                                                          rebotesOfensivos INT            alineacionInicial VARCHAR(10)[m
+[31m-                                                                                          bloqueos INT                    idEquipo INT                     Indexes[m
+[31m-                                                                                          robos INT                       Jugador_idJugador INT[m
+[31m-                                                                                          balonesPerdidos INT             localia VARCHAR(1)[m
+[31m-                                                                                          puntosEnLaPintura INT[m
+[31m-                                                                                          faltasPersonales INT         Indexes[m
+[31m-                                                                                          localia VARCHAR(1)[m
+[31m-                                                                                          minutos INT[m
+[31m-                                                                                          idEquipo INT[m
+[31m-                                                                                          idJugador INT[m
+[31m-[m
+[31m-                                                                                       Indexes[m
+[31m-[m
+\ No newline at end of file[m
+[1mdiff --git a/modelos/EsquemaBaseDeDatos.mwb b/modelos/EsquemaBaseDeDatos.mwb[m
+[1mindex 37d9355..bab5b98 100644[m
+Binary files a/modelos/EsquemaBaseDeDatos.mwb and b/modelos/EsquemaBaseDeDatos.mwb differ
+[1mdiff --git a/scripts/ScriptProyecto.sql b/scripts/ScriptProyecto.sql[m
+[1mindex 31d85ef..9037305 100644[m
+[1m--- a/scripts/ScriptProyecto.sql[m
+[1m+++ b/scripts/ScriptProyecto.sql[m
+[36m@@ -1,6 +1,6 @@[m
+ CREATE TABLE [ScriptProyecto].[dbo].[Persona][m
+ ([m
+[31m-	idPersona INT IDENTITY(1,1),[m
+[32m+[m	[32midPersona INT,[m[41m[m
+ 	pNombre VARCHAR(50) NOT NULL, [m
+ 	sNombre VARCHAR(50), [m
+ 	pApellido VARCHAR(50) NOT NULL, [m
+[36m@@ -12,7 +12,7 @@[m [mCREATE TABLE [ScriptProyecto].[dbo].[Persona][m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[Equipo][m
+ ([m
+[31m-	idEquipo INT NOT NULL IDENTITY(1,1), [m
+[32m+[m	[32midEquipo INT NOT NULL,[m[41m [m
+ 	nombre VARCHAR(50) NOT NULL, [m
+ 	fechaFundacion INT NOT NULL,[m
+ 	CONSTRAINT PK_idEquipo PRIMARY KEY(idEquipo)[m
+[36m@@ -21,20 +21,20 @@[m [mCREATE TABLE [ScriptProyecto].[dbo].[Equipo][m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[Jugador][m
+ ([m
+[31m-	idJugador INT IDENTITY(1,1),[m
+[32m+[m	[32midJugador INT,[m[41m[m
+ 	dorsal VARCHAR(50) NOT NULL,[m
+ 	fechaDebut INT NOT NULL,[m
+ 	sueldo DECIMAL(20,2) NOT NULL,[m
+ 	idPersona INT NOT NULL, [m
+ 	idEquipo INT NOT NULL,[m
+ 	CONSTRAINT PK_idJugador PRIMARY KEY(idJugador),[m
+[31m-	CONSTRAINT FK_idEquipoJ FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),[m
+[31m-	CONSTRAINT FK_idPersonaJ FOREIGN KEY(idPersona) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)[m
+[32m+[m	[32mCONSTRAINT FK_idEquipo FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),[m[41m[m
+[32m+[m	[32mCONSTRAINT FK_idPersona FOREIGN KEY(idPersona) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)[m[41m[m
+ )[m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[DirectorTecnico][m
+ ([m
+[31m-	idDirectorTecnico INT IDENTITY(1,1), [m
+[32m+[m	[32midDirectorTecnico INT,[m[41m [m
+ 	fechaDebut INT NULL, [m
+ 	idPersona INT, [m
+ 	CONSTRAINT PK_idDirectorTecnico PRIMARY KEY(idDirectorTecnico),[m
+[36m@@ -43,7 +43,7 @@[m [mCREATE TABLE [ScriptProyecto].[dbo].[DirectorTecnico][m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto][m
+ ([m
+[31m-	idEstadisticasBaloncesto INT IDENTITY(1,1), [m
+[32m+[m	[32midEstadisticasBaloncesto INT,[m[41m [m
+ 	tirosHechos INT NULL, [m
+ 	tirosAnotados INT NULL, [m
+ 	triplesHechos INT NULL, [m
+[36m@@ -63,12 +63,12 @@[m [mCREATE TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto][m
+ 	idJugador INT NULL, [m
+ 	CONSTRAINT PK_idEstadisticasBaloncesto PRIMARY KEY(idEstadisticasBaloncesto),[m
+ 	CONSTRAINT FK_idEquipoEB FOREIGN KEY (idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),[m
+[31m-	CONSTRAINT FK_idJugadorEB FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)[m
+[32m+[m	[32mCONSTRAINT FK_idJugador FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)[m[41m[m
+ )[m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[EstadisticaFutbol][m
+ ([m
+[31m-	idEstadisticaFutbol INT NOT NULL IDENTITY(1,1), [m
+[32m+[m	[32midEstadisticaFutbol INT NOT NULL,[m[41m [m
+ 	remates INT NULL, [m
+ 	rematesAlArco INT NULL, [m
+ 	posesion INT NULL, [m
+[36m@@ -84,13 +84,13 @@[m [mCREATE TABLE [ScriptProyecto].[dbo].[EstadisticaFutbol][m
+ 	idEquipo INT NULL, [m
+ 	idJugador INT NULL,[m
+ 	CONSTRAINT PK_idEstadisticaFutbol PRIMARY KEY(idEstadisticaFutbol),[m
+[31m-	CONSTRAINT FK_idEquipoEF FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),[m
+[31m-	CONSTRAINT FK_idJugadorEF FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)[m
+[32m+[m	[32mCONSTRAINT FK_idEquipoF FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),[m[41m[m
+[32m+[m	[32mCONSTRAINT FK_idJugadorF FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)[m[41m[m
+ )[m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[EstadisticasBaseball][m
+ ([m
+[31m-	idEstadisticaBaseball INT NOT NULL IDENTITY(1,1),[m
+[32m+[m	[32midEstadisticaBaseball INT NOT NULL,[m[41m[m
+ 	aBase INT NOT NULL, [m
+ 	carrera INT NOT NULL,[m
+ 	hits INT NOT NULL,[m
+[36m@@ -103,47 +103,57 @@[m [mCREATE TABLE [ScriptProyecto].[dbo].[EstadisticasBaseball][m
+ 	idEquipo INT NULL,[m
+ 	idJugador INT NULL [m
+ 	CONSTRAINT PK_idEstadisticaBaseball PRIMARY KEY(idEstadisticaBaseball),[m
+[31m-	CONSTRAINT FK_idEquipoEBB FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),[m
+[31m-	CONSTRAINT FK_idJugadorEBB FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)[m
+[32m+[m	[32mCONSTRAINT FK_idEquipoBB FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),[m[41m[m
+[32m+[m	[32mCONSTRAINT FK_idJugadorBB FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)[m[41m[m
+ )[m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[Parcial][m
+ ([m
+[31m-	idParcial INT IDENTITY(1,1),[m
+[32m+[m	[32midParcial INT,[m[41m[m
+ 	numero INT NOT NULL,[m
+ 	anotaciones INT NULL, [m
+ 	idEstadisticasBaloncesto INT NULL,[m
+ 	idEstadisticasFutbol INT NULL, [m
+ 	idEstadisticasBaseball INT NULL,[m
+[31m-	CONSTRAINT FK_idEstadisticasBaloncestoP FOREIGN KEY(idEstadisticasBaloncesto) REFERENCES [ScriptProyecto].[dbo].[EstadisticaBaloncesto](idEstadisticasBaloncesto),[m
+[31m-	CONSTRAINT FK_idEstadisticasFutbolP FOREIGN KEY(idEstadisticasFutbol) REFERENCES [ScriptProyecto].[dbo].[EstadisticaFutbol](idEstadisticafutbol),[m
+[31m-	CONSTRAINT FK_idEstadisticasBaseballP FOREIGN KEY(idEstadisticasBaseball) REFERENCES [ScriptProyecto].[dbo].[EstadisticasBaseball](idEstadisticaBaseball),[m
+[32m+[m	[32mCONSTRAINT FK_idEstadisticasBaloncesto FOREIGN KEY(idEstadisticasBaloncesto) REFERENCES [ScriptProyecto].[dbo].[EstadisticaBaloncesto](idEstadisticasBaloncesto),[m[41m[m
+[32m+[m	[32mCONSTRAINT FK_idEstadisticasFutbol FOREIGN KEY(idEstadisticasFutbol) REFERENCES [ScriptProyecto].[dbo].[EstadisticaFutbol](idEstadisticafutbol),[m[41m[m
+[32m+[m	[32mCONSTRAINT FK_idEstadisticasBaseball FOREIGN KEY(idEstadisticasBaseball) REFERENCES [ScriptProyecto].[dbo].[EstadisticasBaseball](idEstadisticaBaseball),[m[41m[m
+ 	CONSTRAINT PK_idParcial PRIMARY KEY(idParcial)[m
+ )[m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[Referee][m
+ ([m
+[31m-	idReferee INT IDENTITY(1,1),[m
+[32m+[m	[32midReferee INT,[m[41m[m
+ 	fechaDebut INT NULL,[m
+ 	fechaRetiro INT NULL, [m
+ 	idPersona INT NOT NULL,[m
+ 	CONSTRAINT PK_idReferee PRIMARY KEY(idReferee),[m
+[31m-	CONSTRAINT FK_idPersonaR FOREIGN KEY(idPersona) REFERENCES [dbo].[Persona] [m
+[32m+[m	[32mCONSTRAINT FK_idPersona FOREIGN KEY(idPersona) REFERENCES [dbo].[Persona][m[41m [m
+ )[m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[Partido][m
+ ([m
+[31m-	idPartido INT IDENTITY(1,1),[m
+[32m+[m	[32midPartido INT,[m[41m[m
+ 	fecha VARCHAR(10) NOT NULL,[m
+ 	horaInicio VARCHAR(4) NULL,[m
+ 	idReferee INT NULL,[m
+ 	CONSTRAINT PK_idPartido PRIMARY KEY(idPartido),[m
+[31m-	CONSTRAINT FK_idRefereePar FOREIGN KEY(idReferee) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)[m
+[32m+[m	[32mCONSTRAINT FK_idReferee FOREIGN KEY(idReferee) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)[m[41m[m
+ )[m
+ [m
+[32m+[m[32mCREATE TABLE [ScriptProyecto].[dbo].[DirectorTecnico][m[41m[m
+[32m+[m[32m([m[41m[m
+[32m+[m	[32midDirectorTecnico INT,[m[41m[m
+[32m+[m	[32mfechaDebut INT NULL,[m[41m [m
+[32m+[m	[32midPersona INT NOT NULL,[m[41m[m
+[32m+[m	[32mCONSTRAINT PK_idDirectorTecnico PRIMARY KEY(idDirectorTecnico),[m[41m[m
+[32m+[m	[32mCONSTRAINT FK_idPersona FOREIGN KEY (idPersona) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)[m[41m[m
+[32m+[m[32m)[m[41m[m
+[32m+[m[41m[m
+[32m+[m[41m[m
+ CREATE TABLE [ScriptProyecto].[dbo].[Fase][m
+ ([m
+[31m-	idFase INT IDENTITY(1,1),[m
+[32m+[m	[32midFase INT,[m[41m[m
+ 	nombre VARCHAR(50),[m
+ 	descripcion VARCHAR(200),[m
+ 	CONSTRAINT PK_idFase PRIMARY KEY(idFase)[m
+[36m@@ -154,7 +164,7 @@[m [mCREATE TABLE [ScriptProyecto].[dbo].[Fase][m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[Liga][m
+ ([m
+[31m-	idLiga INT IDENTITY(1,1),[m
+[32m+[m	[32midLiga INT,[m[41m[m
+ 	pais VARCHAR(70) NOT NULL,[m
+ 	cantidadEquiposDescendidos INT NULL,[m
+ 	CONSTRAINT PK_idLiga PRIMARY KEY(idLiga)[m
+[36m@@ -162,11 +172,11 @@[m [mCREATE TABLE [ScriptProyecto].[dbo].[Liga][m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[FaseLiga][m
+ ([m
+[31m-	idFase INT NOT NULL IDENTITY(1,1),[m
+[32m+[m	[32midFase INT NOT NULL,[m[41m[m
+ 	idLiga INT NOT NULL,[m
+ 	Anio INT NOT NULL,[m
+ 	CONSTRAINT FK_idFase FOREIGN KEY (idFase) REFERENCES [ScriptProyecto].[dbo].[Fase],[m
+[31m-	CONSTRAINT FK_idLigaFL FOREIGN KEY (idLiga) REFERENCES [ScriptProyecto].[dbo].[Liga][m
+[32m+[m	[32mCONSTRAINT FK_idLiga FOREIGN KEY (idLiga) REFERENCES [ScriptProyecto].[dbo].[Liga][m[41m[m
+ )[m
+ [m
+ ALTER TABLE [ScriptProyecto].[dbo].[Partido][m
+[36m@@ -179,21 +189,21 @@[m [mALTER TABLE [ScriptProyecto].[dbo].[Partido][m
+ 	ADD idEstadisticasBaseball INT;[m
+ [m
+ ALTER TABLE [ScriptProyecto].[dbo].[Partido] [m
+[31m-	ADD CONSTRAINT FK_idEstadisticasBaloncestoPar [m
+[32m+[m	[32mADD CONSTRAINT FK_idEstadisticasBaloncestoP[m[41m [m
+ 		FOREIGN KEY (idEstadisticasBaloncesto) REFERENCES [ScriptProyecto].[dbo].[EstadisticaBaloncesto](idEstadisticasBaloncesto)[m
+ [m
+ [m
+ ALTER TABLE [ScriptProyecto].[dbo].[Partido][m
+[31m-	ADD CONSTRAINT FK_idEstadisticaBaseballPar[m
+[32m+[m	[32mADD CONSTRAINT FK_idEstadisticaBaseballP[m[41m[m
+ 		FOREIGN KEY (idEstadisticasBaseball) REFERENCES [ScriptProyecto].[dbo].[EstadisticasBaseball](idEstadisticaBaseball)[m
+ [m
+ ALTER TABLE [ScriptProyecto].[dbo].[Partido][m
+[31m-	ADD CONSTRAINT FK_idEstadisticaFutbolPar[m
+[32m+[m	[32mADD CONSTRAINT FK_idEstadisticaFutbolP[m[41m[m
+ 		FOREIGN KEY (idEstadisticasFutbol) REFERENCES [ScriptProyecto].[dbo].[EstadisticaFutbol](idEstadisticaFutbol)[m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[Estadio][m
+ ([m
+[31m-	idEstadio INT IDENTITY(1,1),[m
+[32m+[m	[32midEstadio INT,[m[41m[m
+ 	nombre VARCHAR(50) NOT NULL, [m
+ 	capacidad INT NULL, [m
+ 	--La altura hace referencia a la altura sobre el nivel del mara[m
+[36m@@ -206,7 +216,7 @@[m [mCREATE TABLE [ScriptProyecto].[dbo].[Estadio][m
+ ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD idEstadio INT NOT NULL;[m
+ [m
+ ALTER TABLE [ScriptProyecto].[dbo].[Partido] [m
+[31m-	ADD CONSTRAINT FK_idPartidoPar FOREIGN KEY(idEstadio) [m
+[32m+[m	[32mADD CONSTRAINT FK_idPartido FOREIGN KEY(idEstadio)[m[41m [m
+ 		REFERENCES [ScriptProyecto].[dbo].[Estadio](idEstadio)[m
+ [m
+ ALTER TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto] [m
+[36m@@ -220,21 +230,21 @@[m [mALTER TABLE [ScriptProyecto].[dbo].[EstadisticaFutbol][m
+ [m
+ -- (10) Bitacora de cambios 07/11/2019[m
+ ALTER TABLE [ScriptProyecto].[dbo].[Jugador][m
+[31m-	DROP CONSTRAINT FK_idEquipoJ[m
+[32m+[m	[32mDROP CONSTRAINT FK_idEquipo[m[41m[m
+ [m
+ ALTER TABLE [ScriptProyecto].[dbo].[Jugador][m
+ 	DROP COLUMN idEquipo[m
+ [m
+ CREATE TABLE [ScriptProyecto].[dbo].[Registro][m
+ ([m
+[31m-	idRegistro INT IDENTITY(1,1), [m
+[32m+[m	[32midRegistro INT,[m[41m [m
+ 	fechaContratacion INT NOT NULL,[m
+ 	fechaFinalizaion INT NULL,[m
+ 	idEquipo INT NOT NULL,[m
+ 	idJugador INT NOT NULL,[m
+ 	CONSTRAINT PK_idRegistro PRIMARY KEY(idRegistro),[m
+[31m-	CONSTRAINT FK_idEquipoReg FOREIGN KEY (idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),[m
+[31m-	CONSTRAINT FK_idJugadorReg FOREIGN KEY (idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)[m
+[32m+[m	[32mCONSTRAINT FK_idEquipoR FOREIGN KEY (idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),[m[41m[m
+[32m+[m	[32mCONSTRAINT FK_idJugadorR FOREIGN KEY (idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)[m[41m[m
+ )[m
+ --(10) Bitacora de cambios 07/11/2019[m
+ --(11) Bitacora de cambios 08/11/2019[m
+[36m@@ -246,54 +256,6 @@[m [mALTER TABLE [ScriptProyecto].[dbo].[Liga][m
+ [m
+ ALTER TABLE [ScriptProyecto].[dbo].[Liga][m
+ 	ADD fechaFin INT NULL[m
+[31m---(11) Bitacora de cambios 08/11/2019[m
+[31m---(12) Bitacora de cambios 12/11/2019[m
+[31m-CREATE TABLE [ScriptProyecto].[dbo].[Deporte][m
+[31m-([m
+[31m-	idDeporte INT IDENTITY(1,1),[m
+[31m-	nombre VARCHAR(50),[m
+[31m-	CONSTRAINT PK_idDeporte PRIMARY KEY(idDeporte)[m
+ [m
+[31m-)[m
+[31m---(12) Bitacora de cambios 12/11/2019[m
+[31m---Hasta aqui se puede hacer la ejecucion masiva de los scripts, probado el 12/11/2019 a las 5:31 am[m
+[31m---(13) Bitacora de cambios 12/11/2019[m
+[31m-	ALTER TABLE [ScriptProyecto].[dbo].[Equipo][m
+[31m-		ADD idDeporte INT NOT NULL[m
+[31m-[m
+[31m-	ALTER TABLE [ScriptProyecto].[dbo].[Equipo][m
+[31m-		ADD CONSTRAINT FK_idDeporteEqu [m
+[31m-			FOREIGN KEY(idDeporte) [m
+[31m-				REFERENCES [ScriptProyecto].[dbo].[Deporte][m
+[31m---(13) Bitacora de cambios 12/11/2019[m
+[31m---(14)Bitacora de cambios 12/11/2019[m
+[31m-	ALTER TABLE [ScriptProyecto].[dbo].[Liga][m
+[31m-		DROP COLUMN fechaInicio[m
+[31m-	[m
+[31m-	ALTER TABLE [ScriptProyecto].[dbo].[Liga][m
+[31m-		DROP COLUMN fechaInicio[m
+[31m-[m
+[31m-	ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga][m
+[31m-		ADD fechaInicio INT NOT NULL[m
+[31m-[m
+[31m-	ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga][m
+[31m-		ADD fechaFin INT NULL[m
+[31m-[m
+[31m---(14)Bitacora de cambios 12/11/2019[m
+[31m---(15) Bitacora de cambios 12//11/2019[m
+[31m-	[m
+[31m-CREATE TABLE [ScriptProyecto].[dbo].[Temporada][m
+[31m-([m
+[31m-	idTemporada INT, [m
+[31m-	fechaInicio INT NOT NULL,[m
+[31m-	fechaFin INT NULL,[m
+[31m-	CONSTRAINT PK_idTemporada  PRIMARY KEY(idTemporada)[m
+[31m-)[m
+ [m
+[31m-ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga][m
+[31m-	ADD idTemporada INT NOT NULL[m
+[31m-[m
+[31m-ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga][m
+[31m-	ADD CONSTRAINT FK_idTemporadaFL FOREIGN KEY (idTemporada) [m
+[31m-		REFERENCES [ScriptProyecto].[dbo].[Temporada](idTemporada)[m
+[31m---(15) Bitacora de cambios 12//11/2019[m
+\ No newline at end of file[m
+[32m+[m[32m--(11) Bitacora de cambios 08/11/2019[m[41m[m

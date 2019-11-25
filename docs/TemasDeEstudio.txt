@@ -1,0 +1,9 @@
+15/11/2019
+(1)Campos en tablas como EstadisticasBaloncesto,EstadisticaFutbol, EstadisticaBaseball son campos que puede ser nulos o no nulos,
+pero se tiene que estudiar cual es mas conveniente, bajo la situacion que bajo la misma tabla se guardan las estadisticas para 
+los equipos y para los jugadores, entonces cuando guardemos un equipo vamos a tener que guardar un jugador tambien y esto no se tiene que dar 
+(2)AspectoDeMejora: Mejorar la consulta para obtener la cantidad de partidos que tiene un equipo y a su vez la cantidad de anotaciones que 
+tiene un equipo
+	
+------------------------------------------------------------------------------------------------------------------------------
+

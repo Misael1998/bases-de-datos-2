@@ -1,26 +1,31 @@
 Enunciado sobre enunciados a realizar
 -------------------------------------------------------------------------
 (1)Calculo del promedio de anotaciones de todos los partidos de la liga 
-para la temporada actual
+para una determinada temporada (Hecho)
 -------------------------------------------------------------------------
-(2)Calculo del promedio de anotaciones de un equipo para todos los partidos
-de la liga
+(2)--Eliminado
 -------------------------------------------------------------------------
 (3)Calculo del promedio de expulsiones por equipo (Esto para deportes como
-baloncesto y futbol)
+baloncesto y futbol)(Objeto de estudio)
 -------------------------------------------------------------------------
-(4)Conversion de fecha al formato manejado por la base de datos
+(4)Eliminado
 -------------------------------------------------------------------------
-(5)Calculo de la temperatura promedio dentro del ultimo mes para
-el estadio X
+(5)
 -------------------------------------------------------------------------
-(6)
+(6)Porcentaje de victorias que posee un equipo jugando como local 
 -------------------------------------------------------------------------
-(7)
+(7)Funcion de conversion de int a date (Sin fecha)(Hecho)
 -------------------------------------------------------------------------
-(8)
+(8)Funcion de conversion de int a date (Con fecha)
 -------------------------------------------------------------------------
-(9)
+(9)Calculo de los jugadores con mas porcentaje de anotaciones para la actual temporada o para
+la ultima temporada
 -------------------------------------------------------------------------
-(10)
+(10)Creacion de una funcion de tabla que envie una a los jugadores con mas 
+anotaciones en un partido, con su idJugador, anotaciones, equipo (FuncionTabla)
 -------------------------------------------------------------------------
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+CREACION DE ENUNCIADO DE FUNCIONES A POSTERIOR, PARA REALIZAR FUNCIONES,
+QUE ESTEN RELACIONADAS CON EL DATAWAREHOUSE
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
