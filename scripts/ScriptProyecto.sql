@@ -316,9 +316,12 @@ ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD CONSTRAINT FK_idFaseP FOREIGN K
 		ADD CONSTRAINT FK_idDeporteJ FOREIGN KEY(idDeporte) 
 			REFERENCES [ScriptProyecto].[dbo].[Deporte]
 --(16) Bitacora de cambios 16/11/2019
+--(17) Bitacora de cambios 25/11/2019
 
+ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD idDeporte INT;
+ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD CONSTRAINT FK_idDeporte FOREIGN KEY(idDeporte) REFERENCES [ScriptProyecto].[dbo].[Deporte]
 
-
+--(17) Bitacora de cambios 25/11/2019
 
 
 

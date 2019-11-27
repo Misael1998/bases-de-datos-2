@@ -9,7 +9,12 @@ y ademas se le añada una columna que evalue si este partido se gano o se perdio
 (3)Calculo del promedio de expulsiones por equipo (Esto para deportes como
 baloncesto y futbol)(Objeto de estudio)
 -------------------------------------------------------------------------
-(4)Eliminado
+(4)Funcion que recibe un id de partido calculo cual fue el equipo ganador y partir 
+de aqui envia una tabla con el equipo ganar, en caso de que el juego ya se haya jugado, 
+para deportes como futbol se tienen que enviar una tabla con el campo donde iria el nombre del equipo
+enviaria empate y en la parte de la cantidad de anotaciones enviaria -1, para todos aquellos partidos los cuales ya fueron creados
+su tabla pero no se han jugado tiene que enviar una tabla en donde iria el nombre escribiria none y la cantidad de anotaciones seria 
+-2
 -------------------------------------------------------------------------
 (5)
 -------------------------------------------------------------------------

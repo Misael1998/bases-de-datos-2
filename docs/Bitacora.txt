@@ -42,3 +42,7 @@ Cambios realizados
 (16)Se necesita una relacion de jugador a deporte, por razon de escabilidad hasta el momento la base de datos solo maneja 
 estadisticas de Baseball, Fubtol y Baloncesto. Pero si en un futuro se ve la necesidad de agregarse un nuevo deporte como boxeo
 no se podra realizar la obtecion de datos para un peleador porque este no posee un equipo
+------------------------------------------------------------------------------------
+Cambios realizados 25/11/2019
+(17)Relacion que va desde el deporte hasta el partido, esto se hace con fines de consulta, porque cuando se tienen que hacer la consulta 
+se tiene que hacer la distincion de esta manera es mucho mas sencilla  
