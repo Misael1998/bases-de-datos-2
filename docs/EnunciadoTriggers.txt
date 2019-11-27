@@ -1,0 +1,6 @@
+Creacion de Triggers 
+-- ---------------------------------------------------------
+(1)Creacion de un trigger que cuando se quiera seleccionar un 
+nuevo deporte para saber si ese nombre de lo que se va insertar 
+ya se ha ingresado uno parecido a este
+-- ---------------------------------------------------------
