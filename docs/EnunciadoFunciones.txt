@@ -16,7 +16,13 @@ enviaria empate y en la parte de la cantidad de anotaciones enviaria -1, para to
 su tabla pero no se han jugado tiene que enviar una tabla en donde iria el nombre escribiria none y la cantidad de anotaciones seria 
 -2
 -------------------------------------------------------------------------
-(5)
+(5)Funcion que recibe 1 parametro que puede ir del 1 al 7, 
+de esta manera nos retorna cuantos dias le falta a la fecha actual 
+para llegar a ese dia de la semana: 
+Ejemplo si estamos en Viernes y queremos saber cuantos dias nos falta para llegar al martes, 
+le enviamos como parametro 2 y este nos retornara 2 que son el numero dia que nos falta para llegar a ese dia, 
+este calculo solo dentro de la misma semana, se si quiere hacer de todas las semamas se tiene que usar otra funcion
+day year y solo restarle cuantas dias hay de diferenciaa
 -------------------------------------------------------------------------
 (6)Porcentaje de victorias que posee un equipo jugando como local 
 -------------------------------------------------------------------------

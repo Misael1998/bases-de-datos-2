@@ -46,3 +46,13 @@ no se podra realizar la obtecion de datos para un peleador porque este no posee 
 Cambios realizados 25/11/2019
 (17)Relacion que va desde el deporte hasta el partido, esto se hace con fines de consulta, porque cuando se tienen que hacer la consulta 
 se tiene que hacer la distincion de esta manera es mucho mas sencilla  
+------------------------------------------------------------------------------------
+Cambios realizados 27/11/2019
+(18)Creacion de una nueva tabla de estado, que esta conectada en partido y jugador, esta relacion se necesita para
+mantener el manejo de cuanto equipo fue suspendido, de cuanto un partido finalizo, cuando un partido esta pendiente etc...
+la relacion para jugadores es para que ese pueda saber si un jugador esta lesionado o no
+(19)Creacion de una tabla que estara guardando los equipos que son los mejores de la liga, esta tabla no tendra ninguna relacion 
+con las otras tablas
+------------------------------------------------------------------------------------
+Cambios realizados 28/11/2019
+------------------------------------------------------------------------------------

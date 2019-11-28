@@ -4,3 +4,5 @@ Creacion de Triggers
 nuevo deporte para saber si ese nombre de lo que se va insertar 
 ya se ha ingresado uno parecido a este
 -- ---------------------------------------------------------
+(2)
+-- ---------------------------------------------------------

@@ -1,3 +1,16 @@
+IF NOT EXISTS
+(
+	SELECT db.name 
+		FROM sysdatabases db
+		WHERE db.name = 'ScriptProyecto'	
+)
+BEGIN 
+	CREATE DATABASE ScriptProyecto
+END
+
+
+	
+
 CREATE TABLE [ScriptProyecto].[dbo].[Persona]
 (
 	idPersona INT IDENTITY(1,1),
@@ -322,6 +335,131 @@ ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD idDeporte INT;
 ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD CONSTRAINT FK_idDeporte FOREIGN KEY(idDeporte) REFERENCES [ScriptProyecto].[dbo].[Deporte]
 
 --(17) Bitacora de cambios 25/11/2019
+--(18) Bitacora de cambios 27/11/2019
+IF NOT EXISTS 
+(
+	SELECT * 
+		FROM sysobjects syob
+			WHERE syob.name = 'Estado'
+)
+BEGIN 
+	CREATE TABLE Estado 
+	(
+		idEstado INT, 
+		nombre VARCHAR(50) NOT NULL,
+		descripcion  VARCHAR(200) 
+	)
+END
+--(18) Bitacora de cambios 27/11/2019
+
+--(19) Bitacora de cambios 28/11/2019
+		IF NOT EXISTS
+	(
+		SELECT *
+			FROM sysobjects sybo
+			WHERE sybo.name = 'MejorEquipo'
+	)
+	BEGIN
+		CREATE TABLE [ScriptProyecto].[dbo].[MejorEquipo]
+		(
+			idMejoreEquipo INT, 
+			nombre VARCHAR(50) NOT NULL,
+			fechaInicio INT NOT NULL, 
+			anotaciones INT NOT NULL
+		)
+	END
+--(19) Bitacora de cambios 28/11/2019
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

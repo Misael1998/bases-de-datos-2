@@ -1,0 +1,5 @@
+EnunciadoProcedimientosAlmacenados
+-- --------------------------------------------------------------------------------------------------------------
+(1) Procedimiento almacenado que se le envie un partido y evalue la fecha en la que estaba destinado a jugarse
+si la fecha es 
+-- --------------------------------------------------------------------------------------------------------------
