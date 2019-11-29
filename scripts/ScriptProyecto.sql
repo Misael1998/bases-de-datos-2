@@ -7,220 +7,403 @@ IF NOT EXISTS
 BEGIN 
 	CREATE DATABASE ScriptProyecto
 END
-
-
 	
-
-CREATE TABLE [ScriptProyecto].[dbo].[Persona]
+IF NOT EXISTS
 (
-	idPersona INT IDENTITY(1,1),
-	pNombre VARCHAR(50) NOT NULL, 
-	sNombre VARCHAR(50), 
-	pApellido VARCHAR(50) NOT NULL, 
-	sApellido VARCHAR(50),
-	fechaNacimiento INT NOT NULL,
-	paisNacimiento VARCHAR(50) NOT NULL, 
-	CONSTRAINT PK_idPersona PRIMARY KEY(idPersona)
+	SELECT * 
+		FROM sysobjects sys 
+			WHERE sys.name = 'Persona'
 )
-
-CREATE TABLE [ScriptProyecto].[dbo].[Equipo]
+BEGIN
+	CREATE TABLE [ScriptProyecto].[dbo].[Persona]
+	(
+		idPersona INT IDENTITY(1,1),
+		pNombre VARCHAR(50) NOT NULL, 
+		sNombre VARCHAR(50), 
+		pApellido VARCHAR(50) NOT NULL, 
+		sApellido VARCHAR(50),
+		fechaNacimiento INT NOT NULL,
+		paisNacimiento VARCHAR(50) NOT NULL, 
+		CONSTRAINT PK_idPersona PRIMARY KEY(idPersona)
+	)
+END
+ 
+IF NOT EXISTS 
 (
-	idEquipo INT NOT NULL IDENTITY(1,1), 
-	nombre VARCHAR(50) NOT NULL, 
-	fechaFundacion INT NOT NULL,
-	CONSTRAINT PK_idEquipo PRIMARY KEY(idEquipo)
+	SELECT *	
+		FROM sysobjects sy
+			WHERE sy.name = 'Equipo'
 )
+BEGIN
+	CREATE TABLE [ScriptProyecto].[dbo].[Equipo]
+	(
+		idEquipo INT NOT NULL IDENTITY(1,1), 
+		nombre VARCHAR(50) NOT NULL, 
+		fechaFundacion INT NOT NULL,
+		CONSTRAINT PK_idEquipo PRIMARY KEY(idEquipo)
+	)
+END
 
-
-CREATE TABLE [ScriptProyecto].[dbo].[Jugador]
+IF NOT EXISTS
 (
-	idJugador INT IDENTITY(1,1),
-	dorsal VARCHAR(50) NOT NULL,
-	fechaDebut INT NOT NULL,
-	sueldo DECIMAL(20,2) NOT NULL,
-	idPersona INT NOT NULL, 
-	idEquipo INT NOT NULL,
-	CONSTRAINT PK_idJugador PRIMARY KEY(idJugador),
-	CONSTRAINT FK_idEquipoJ FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
-	CONSTRAINT FK_idPersonaJ FOREIGN KEY(idPersona) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Jugador'
 )
+BEGIN
+	CREATE TABLE [ScriptProyecto].[dbo].[Jugador]
+	(	
+		idJugador INT IDENTITY(1,1),
+		dorsal VARCHAR(50) NOT NULL,
+		fechaDebut INT NOT NULL,
+		sueldo DECIMAL(20,2) NOT NULL,
+		idPersona INT NOT NULL, 
+		idEquipo INT NOT NULL,
+		CONSTRAINT PK_idJugador PRIMARY KEY(idJugador),
+		CONSTRAINT FK_idEquipoJ FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
+		CONSTRAINT FK_idPersonaJ FOREIGN KEY(idPersona) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
+	)
+END
 
-CREATE TABLE [ScriptProyecto].[dbo].[DirectorTecnico]
+IF NOT EXISTS
 (
-	idDirectorTecnico INT IDENTITY(1,1), 
-	fechaDebut INT NULL, 
-	idPersona INT, 
-	CONSTRAINT PK_idDirectorTecnico PRIMARY KEY(idDirectorTecnico),
-	CONSTRAINT FK_idPersonaDT FOREIGN KEY(idPersona) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'DirectorTecnico'
 )
+	BEGIN 
+		CREATE TABLE [ScriptProyecto].[dbo].[DirectorTecnico]
+		(
+			idDirectorTecnico INT IDENTITY(1,1), 
+			fechaDebut INT NULL, 
+			idPersona INT, 
+			CONSTRAINT PK_idDirectorTecnico PRIMARY KEY(idDirectorTecnico),
+			CONSTRAINT FK_idPersonaDT FOREIGN KEY(idPersona) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
+		)
+	END
 
-CREATE TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto]
+IF NOT EXISTS
 (
-	idEstadisticasBaloncesto INT IDENTITY(1,1), 
-	tirosHechos INT NULL, 
-	tirosAnotados INT NULL, 
-	triplesHechos INT NULL, 
-	triplesAnotados INT NULL, 
-	tirosLibresHechos INT NULL, 
-	tirosLibresAnotados INT NULL, 
-	Asistencia INT NULL, 
-	bloqueos INT NULL, 
-	robos INT NULL, 
-	balonesPerdidos INT NULL,
-	rebotes INT NULL, 
-	rebotesOfensivos INT NULL, 
-	puntosEnLaPintura INT NULL,
-	faltasPersonales INT NULL,
-	minutos INT NULL, 
-	idEquipo INT NULL,
-	idJugador INT NULL, 
-	CONSTRAINT PK_idEstadisticasBaloncesto PRIMARY KEY(idEstadisticasBaloncesto),
-	CONSTRAINT FK_idEquipoEB FOREIGN KEY (idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
-	CONSTRAINT FK_idJugadorEB FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'EstadisticaBaloncesto'
 )
+	BEGIN
+		CREATE TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto]
+		(
+			idEstadisticasBaloncesto INT IDENTITY(1,1), 
+			tirosHechos INT NULL, 
+			tirosAnotados INT NULL, 
+			triplesHechos INT NULL, 
+			triplesAnotados INT NULL, 
+			tirosLibresHechos INT NULL, 
+			tirosLibresAnotados INT NULL, 
+			Asistencia INT NULL, 
+			bloqueos INT NULL, 
+			robos INT NULL, 
+			balonesPerdidos INT NULL,
+			rebotes INT NULL, 
+			rebotesOfensivos INT NULL, 
+			puntosEnLaPintura INT NULL,
+			faltasPersonales INT NULL,
+			minutos INT NULL, 
+			idEquipo INT NULL,
+			idJugador INT NULL, 
+			CONSTRAINT PK_idEstadisticasBaloncesto PRIMARY KEY(idEstadisticasBaloncesto),
+			CONSTRAINT FK_idEquipoEB FOREIGN KEY (idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
+			CONSTRAINT FK_idJugadorEB FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	)		
+	END
 
-CREATE TABLE [ScriptProyecto].[dbo].[EstadisticaFutbol]
+IF NOT EXISTS
 (
-	idEstadisticaFutbol INT NOT NULL IDENTITY(1,1), 
-	remates INT NULL, 
-	rematesAlArco INT NULL, 
-	posesion INT NULL, 
-	pases INT NULL, 
-	precisionPases INT NULL, 
-	faltas INT NULL, 
-	tarjetasAmarillas INT NOT NULL, 
-	tarjetasRojas INT NOT NULL, 
-	goles INT NOT NULL, 
-	poscionAdelantada INT NULL, 
-	tiroEsquina INT NULL,
-	alineacionInicial VARCHAR(10), 
-	idEquipo INT NULL, 
-	idJugador INT NULL,
-	CONSTRAINT PK_idEstadisticaFutbol PRIMARY KEY(idEstadisticaFutbol),
-	CONSTRAINT FK_idEquipoEF FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
-	CONSTRAINT FK_idJugadorEF FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	SELECT *
+		FROM  sysobjects sy
+			WHERE sy.name = 'EstadisticaFutbol'
 )
+	BEGIN
+	CREATE TABLE [ScriptProyecto].[dbo].[EstadisticaFutbol]
+	(
+		idEstadisticaFutbol INT NOT NULL IDENTITY(1,1), 
+		remates INT NULL, 
+		rematesAlArco INT NULL, 
+		posesion INT NULL, 
+		pases INT NULL, 
+		precisionPases INT NULL, 
+		faltas INT NULL, 
+		tarjetasAmarillas INT NOT NULL, 
+		tarjetasRojas INT NOT NULL, 
+		goles INT NOT NULL, 
+		poscionAdelantada INT NULL, 
+		tiroEsquina INT NULL,
+		alineacionInicial VARCHAR(10), 
+		idEquipo INT NULL, 
+		idJugador INT NULL,
+		CONSTRAINT PK_idEstadisticaFutbol PRIMARY KEY(idEstadisticaFutbol),
+		CONSTRAINT FK_idEquipoEF FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
+		CONSTRAINT FK_idJugadorEF FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	)
+	END
 
-CREATE TABLE [ScriptProyecto].[dbo].[EstadisticasBaseball]
+IF NOT EXISTS 
+(	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'EstadisticasBaseball'
+)
+BEGIN 
+	CREATE TABLE [ScriptProyecto].[dbo].[EstadisticasBaseball]
+	(
+		idEstadisticaBaseball INT NOT NULL IDENTITY(1,1),
+		aBase INT NOT NULL, 
+		carrera INT NOT NULL,
+		hits INT NOT NULL,
+		basePorBola INT NOT NULL,
+		carrerasPermitidas INT NOT NULL, 
+		inningsLanzados INT NOT NULL,
+		hitsPermitidos INT NOT NULL, 
+		carrerasLimpias INT NOT NULL, 
+		ponches INT NOT NULL,
+		idEquipo INT NULL,
+		idJugador INT NULL 
+		CONSTRAINT PK_idEstadisticaBaseball PRIMARY KEY(idEstadisticaBaseball),
+		CONSTRAINT FK_idEquipoEBB FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
+		CONSTRAINT FK_idJugadorEBB FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	)
+END
+
+IF NOT EXISTS
 (
-	idEstadisticaBaseball INT NOT NULL IDENTITY(1,1),
-	aBase INT NOT NULL, 
-	carrera INT NOT NULL,
-	hits INT NOT NULL,
-	basePorBola INT NOT NULL,
-	carrerasPermitidas INT NOT NULL, 
-	inningsLanzados INT NOT NULL,
-	hitsPermitidos INT NOT NULL, 
-	carrerasLimpias INT NOT NULL, 
-	ponches INT NOT NULL,
-	idEquipo INT NULL,
-	idJugador INT NULL 
-	CONSTRAINT PK_idEstadisticaBaseball PRIMARY KEY(idEstadisticaBaseball),
-	CONSTRAINT FK_idEquipoEBB FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
-	CONSTRAINT FK_idJugadorEBB FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Parcial'
 )
+BEGIN
+	CREATE TABLE [ScriptProyecto].[dbo].[Parcial]
+	(
+		idParcial INT IDENTITY(1,1),
+		numero INT NOT NULL,
+		anotaciones INT NULL, 
+		idEstadisticasBaloncesto INT NULL,
+		idEstadisticasFutbol INT NULL, 
+		idEstadisticasBaseball INT NULL,
+		CONSTRAINT FK_idEstadisticasBaloncestoP FOREIGN KEY(idEstadisticasBaloncesto) REFERENCES [ScriptProyecto].[dbo].[EstadisticaBaloncesto](idEstadisticasBaloncesto),
+		CONSTRAINT FK_idEstadisticasFutbolP FOREIGN KEY(idEstadisticasFutbol) REFERENCES [ScriptProyecto].[dbo].[EstadisticaFutbol](idEstadisticafutbol),
+		CONSTRAINT FK_idEstadisticasBaseballP FOREIGN KEY(idEstadisticasBaseball) REFERENCES [ScriptProyecto].[dbo].[EstadisticasBaseball](idEstadisticaBaseball),
+		CONSTRAINT PK_idParcial PRIMARY KEY(idParcial)
+	)
+END
 
-CREATE TABLE [ScriptProyecto].[dbo].[Parcial]
+IF NOT EXISTS
+(	
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Referee'
+)
+BEGIN
+	CREATE TABLE [ScriptProyecto].[dbo].[Referee]
+	(
+		idReferee INT IDENTITY(1,1),
+		fechaDebut INT NULL,
+		fechaRetiro INT NULL, 
+		idPersona INT NOT NULL,
+		CONSTRAINT PK_idReferee PRIMARY KEY(idReferee),
+		CONSTRAINT FK_idPersonaR FOREIGN KEY(idPersona) REFERENCES [dbo].[Persona] 
+	)
+END
+
+IF NOT EXISTS
+(	
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Partido'
+)
+BEGIN
+	CREATE TABLE [ScriptProyecto].[dbo].[Partido]
+	(
+		idPartido INT IDENTITY(1,1),
+		fecha VARCHAR(10) NOT NULL,
+		horaInicio VARCHAR(4) NULL,
+		idReferee INT NULL,
+		CONSTRAINT PK_idPartido PRIMARY KEY(idPartido),
+		CONSTRAINT FK_idRefereePar FOREIGN KEY(idReferee) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
+	)
+END
+
+IF NOT EXISTS 
 (
-	idParcial INT IDENTITY(1,1),
-	numero INT NOT NULL,
-	anotaciones INT NULL, 
-	idEstadisticasBaloncesto INT NULL,
-	idEstadisticasFutbol INT NULL, 
-	idEstadisticasBaseball INT NULL,
-	CONSTRAINT FK_idEstadisticasBaloncestoP FOREIGN KEY(idEstadisticasBaloncesto) REFERENCES [ScriptProyecto].[dbo].[EstadisticaBaloncesto](idEstadisticasBaloncesto),
-	CONSTRAINT FK_idEstadisticasFutbolP FOREIGN KEY(idEstadisticasFutbol) REFERENCES [ScriptProyecto].[dbo].[EstadisticaFutbol](idEstadisticafutbol),
-	CONSTRAINT FK_idEstadisticasBaseballP FOREIGN KEY(idEstadisticasBaseball) REFERENCES [ScriptProyecto].[dbo].[EstadisticasBaseball](idEstadisticaBaseball),
-	CONSTRAINT PK_idParcial PRIMARY KEY(idParcial)
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Fase'
 )
+	BEGIN
+		CREATE TABLE [ScriptProyecto].[dbo].[Fase]
+		(
+			idFase INT IDENTITY(1,1),
+			nombre VARCHAR(50),
+			descripcion VARCHAR(200),
+			CONSTRAINT PK_idFase PRIMARY KEY(idFase)
+		)
+	END
 
-CREATE TABLE [ScriptProyecto].[dbo].[Referee]
+IF NOT EXISTS
 (
-	idReferee INT IDENTITY(1,1),
-	fechaDebut INT NULL,
-	fechaRetiro INT NULL, 
-	idPersona INT NOT NULL,
-	CONSTRAINT PK_idReferee PRIMARY KEY(idReferee),
-	CONSTRAINT FK_idPersonaR FOREIGN KEY(idPersona) REFERENCES [dbo].[Persona] 
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Liga'
 )
+	BEGIN
+		CREATE TABLE [ScriptProyecto].[dbo].[Liga]
+		(
+			idLiga INT IDENTITY(1,1),
+			pais VARCHAR(70) NOT NULL,
+			cantidadEquiposDescendidos INT NULL,
+			CONSTRAINT PK_idLiga PRIMARY KEY(idLiga)
+		)
+	END
 
-CREATE TABLE [ScriptProyecto].[dbo].[Partido]
+IF NOT EXISTS
 (
-	idPartido INT IDENTITY(1,1),
-	fecha VARCHAR(10) NOT NULL,
-	horaInicio VARCHAR(4) NULL,
-	idReferee INT NULL,
-	CONSTRAINT PK_idPartido PRIMARY KEY(idPartido),
-	CONSTRAINT FK_idRefereePar FOREIGN KEY(idReferee) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'FaseLiga'
 )
+BEGIN 
+	CREATE TABLE [ScriptProyecto].[dbo].[FaseLiga]
+	(
+		idFase INT NOT NULL IDENTITY(1,1),
+		idLiga INT NOT NULL,
+		Anio INT NOT NULL,
+		CONSTRAINT FK_idFase FOREIGN KEY (idFase) REFERENCES [ScriptProyecto].[dbo].[Fase],
+		CONSTRAINT FK_idLigaFL FOREIGN KEY (idLiga) REFERENCES [ScriptProyecto].[dbo].[Liga]
+	)	
+END
 
-CREATE TABLE [ScriptProyecto].[dbo].[Fase]
+IF NOT EXISTS
+(	
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Partido'
+)
+	BEGIN
+			CREATE TABLE [ScriptProyecto].[dbo].[Partido]
+		(
+			idPartido INT IDENTITY(1,1),
+			fecha VARCHAR(10) NOT NULL,
+			horaInicio VARCHAR(4) NULL,
+			idReferee INT NULL,
+			CONSTRAINT PK_idPartido PRIMARY KEY(idPartido),
+			CONSTRAINT FK_idRefereePar FOREIGN KEY(idReferee) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
+			
+			ALTER TABLE [ScriptProyecto].[dbo].[Partido]
+				ADD idEstadisticasBaloncesto INT;
+
+			ALTER TABLE [ScriptProyecto].[dbo].[Partido]
+				ADD idEstadisticasFutbol INT;
+
+			ALTER TABLE [ScriptProyecto].[dbo].[Partido]
+				ADD idEstadisticasBaseball INT;
+
+			ALTER TABLE [ScriptProyecto].[dbo].[Partido] 
+				ADD CONSTRAINT FK_idEstadisticasBaloncestoPar 
+					FOREIGN KEY (idEstadisticasBaloncesto) REFERENCES [ScriptProyecto].[dbo].[EstadisticaBaloncesto](idEstadisticasBaloncesto)
+
+
+			ALTER TABLE [ScriptProyecto].[dbo].[Partido]
+				ADD CONSTRAINT FK_idEstadisticaBaseballPar
+					FOREIGN KEY (idEstadisticasBaseball) REFERENCES [ScriptProyecto].[dbo].[EstadisticasBaseball](idEstadisticaBaseball)
+
+			ALTER TABLE [ScriptProyecto].[dbo].[Partido]
+				ADD CONSTRAINT FK_idEstadisticaFutbolPar
+					FOREIGN KEY (idEstadisticasFutbol) REFERENCES [ScriptProyecto].[dbo].[EstadisticaFutbol](idEstadisticaFutbol)
+	END
+
+IF NOT EXISTS
 (
-	idFase INT IDENTITY(1,1),
-	nombre VARCHAR(50),
-	descripcion VARCHAR(200),
-	CONSTRAINT PK_idFase PRIMARY KEY(idFase)
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Estadio' 
 )
+BEGIN 
+	CREATE TABLE [ScriptProyecto].[dbo].[Estadio]
+	(
+		idEstadio INT IDENTITY(1,1),
+		nombre VARCHAR(50) NOT NULL, 
+		capacidad INT NULL, 
+		--La altura hace referencia a la altura sobre el nivel del mara
+		altura INT NULL,
+		temperaturaPromedio INT NULL,
+		pais VARCHAR(50) NOT NULL
+		CONSTRAINT PK_idEstadio PRIMARY KEY(idEstadio)
+	)
+END
 
---ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD idReferee INT NULL;
---ALTER TABLE [ScriptProyecto.[dbo].[Partido] ADD CONSTRAINT FK_idReferee PRIMARY KEY(idReferee);
-
-CREATE TABLE [ScriptProyecto].[dbo].[Liga]
+IF NOT EXISTS
 (
-	idLiga INT IDENTITY(1,1),
-	pais VARCHAR(70) NOT NULL,
-	cantidadEquiposDescendidos INT NULL,
-	CONSTRAINT PK_idLiga PRIMARY KEY(idLiga)
+	SELECT *
+		FROM sysobjects sy 
+			WHERE sy.name = 'Partido'
+		
 )
+BEGIN
+		CREATE TABLE [ScriptProyecto].[dbo].[Partido]
+		(
+			idPartido INT IDENTITY(1,1),
+			fecha VARCHAR(10) NOT NULL,
+			horaInicio VARCHAR(4) NULL,
+			idReferee INT NULL,
+			CONSTRAINT PK_idPartido PRIMARY KEY(idPartido),
+			CONSTRAINT FK_idRefereePar FOREIGN KEY(idReferee) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
+		)
 
-CREATE TABLE [ScriptProyecto].[dbo].[FaseLiga]
+		ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD idEstadio INT NOT NULL;
+
+		ALTER TABLE [ScriptProyecto].[dbo].[Partido] 
+			ADD CONSTRAINT FK_idPartidoPar FOREIGN KEY(idEstadio) 
+				REFERENCES [ScriptProyecto].[dbo].[Estadio](idEstadio)
+END
+	ELSE 
+		BEGIN
+			ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD idEstadio INT NOT NULL;
+
+		ALTER TABLE [ScriptProyecto].[dbo].[Partido] 
+			ADD CONSTRAINT FK_idPartidoPar FOREIGN KEY(idEstadio) 
+				REFERENCES [ScriptProyecto].[dbo].[Estadio](idEstadio)
+		END
+
+IF NOT EXISTS
 (
-	idFase INT NOT NULL IDENTITY(1,1),
-	idLiga INT NOT NULL,
-	Anio INT NOT NULL,
-	CONSTRAINT FK_idFase FOREIGN KEY (idFase) REFERENCES [ScriptProyecto].[dbo].[Fase],
-	CONSTRAINT FK_idLigaFL FOREIGN KEY (idLiga) REFERENCES [ScriptProyecto].[dbo].[Liga]
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'EstadisticaBaloncesto'
 )
-
-ALTER TABLE [ScriptProyecto].[dbo].[Partido]
-	ADD idEstadisticasBaloncesto INT;
-
-ALTER TABLE [ScriptProyecto].[dbo].[Partido]
-	ADD idEstadisticasFutbol INT;
-
-ALTER TABLE [ScriptProyecto].[dbo].[Partido]
-	ADD idEstadisticasBaseball INT;
-
-ALTER TABLE [ScriptProyecto].[dbo].[Partido] 
-	ADD CONSTRAINT FK_idEstadisticasBaloncestoPar 
-		FOREIGN KEY (idEstadisticasBaloncesto) REFERENCES [ScriptProyecto].[dbo].[EstadisticaBaloncesto](idEstadisticasBaloncesto)
-
-
-ALTER TABLE [ScriptProyecto].[dbo].[Partido]
-	ADD CONSTRAINT FK_idEstadisticaBaseballPar
-		FOREIGN KEY (idEstadisticasBaseball) REFERENCES [ScriptProyecto].[dbo].[EstadisticasBaseball](idEstadisticaBaseball)
-
-ALTER TABLE [ScriptProyecto].[dbo].[Partido]
-	ADD CONSTRAINT FK_idEstadisticaFutbolPar
-		FOREIGN KEY (idEstadisticasFutbol) REFERENCES [ScriptProyecto].[dbo].[EstadisticaFutbol](idEstadisticaFutbol)
-
-CREATE TABLE [ScriptProyecto].[dbo].[Estadio]
-(
-	idEstadio INT IDENTITY(1,1),
-	nombre VARCHAR(50) NOT NULL, 
-	capacidad INT NULL, 
-	--La altura hace referencia a la altura sobre el nivel del mara
-	altura INT NULL,
-	temperaturaPromedio INT NULL,
-	pais VARCHAR(50) NOT NULL
-	CONSTRAINT PK_idEstadio PRIMARY KEY(idEstadio)
-)
-
-ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD idEstadio INT NOT NULL;
-
-ALTER TABLE [ScriptProyecto].[dbo].[Partido] 
-	ADD CONSTRAINT FK_idPartidoPar FOREIGN KEY(idEstadio) 
-		REFERENCES [ScriptProyecto].[dbo].[Estadio](idEstadio)
+BEGIN
+		CREATE TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto]
+		(
+			idEstadisticasBaloncesto INT IDENTITY(1,1), 
+			tirosHechos INT NULL, 
+			tirosAnotados INT NULL, 
+			triplesHechos INT NULL, 
+			triplesAnotados INT NULL, 
+			tirosLibresHechos INT NULL, 
+			tirosLibresAnotados INT NULL, 
+			Asistencia INT NULL, 
+			bloqueos INT NULL, 
+			robos INT NULL, 
+			balonesPerdidos INT NULL,
+			rebotes INT NULL, 
+			rebotesOfensivos INT NULL, 
+			puntosEnLaPintura INT NULL,
+			faltasPersonales INT NULL,
+			minutos INT NULL, 
+			idEquipo INT NULL,
+			idJugador INT NULL, 
+			CONSTRAINT PK_idEstadisticasBaloncesto PRIMARY KEY(idEstadisticasBaloncesto),
+			CONSTRAINT FK_idEquipoEB FOREIGN KEY (idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
+			CONSTRAINT FK_idJugadorEB FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+		)
+		ALTER TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto] 
+			ADD localia VARCHAR(1);
+END
 
 ALTER TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto] 
 	ADD localia VARCHAR(1);
