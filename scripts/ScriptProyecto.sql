@@ -405,64 +405,290 @@ BEGIN
 			ADD localia VARCHAR(1);
 END
 
-ALTER TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto] 
-	ADD localia VARCHAR(1);
-
-ALTER TABLE [ScriptProyecto].[dbo].[EstadisticasBaseball]
-	ADD localia VARCHAR(1);
-
-ALTER TABLE [ScriptProyecto].[dbo].[EstadisticaFutbol]
-	ADD localia VARCHAR(1);
-
--- (10) Bitacora de cambios 07/11/2019
-ALTER TABLE [ScriptProyecto].[dbo].[Jugador]
-	DROP CONSTRAINT FK_idEquipoJ
-
-ALTER TABLE [ScriptProyecto].[dbo].[Jugador]
-	DROP COLUMN idEquipo
-
-CREATE TABLE [ScriptProyecto].[dbo].[Registro]
+IF NOT EXISTS
 (
-	idRegistro INT IDENTITY(1,1), 
-	fechaContratacion INT NOT NULL,
-	fechaFinalizaion INT NULL,
-	idEquipo INT NOT NULL,
-	idJugador INT NOT NULL,
-	CONSTRAINT PK_idRegistro PRIMARY KEY(idRegistro),
-	CONSTRAINT FK_idEquipoReg FOREIGN KEY (idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
-	CONSTRAINT FK_idJugadorReg FOREIGN KEY (idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'EstadisticaBaloncesto'
 )
+BEGIN 
+		CREATE TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto]
+		(
+			idEstadisticasBaloncesto INT IDENTITY(1,1), 
+			tirosHechos INT NULL, 
+			tirosAnotados INT NULL, 
+			triplesHechos INT NULL, 
+			triplesAnotados INT NULL, 
+			tirosLibresHechos INT NULL, 
+			tirosLibresAnotados INT NULL, 
+			Asistencia INT NULL, 
+			bloqueos INT NULL, 
+			robos INT NULL, 
+			balonesPerdidos INT NULL,
+			rebotes INT NULL, 
+			rebotesOfensivos INT NULL, 
+			puntosEnLaPintura INT NULL,
+			faltasPersonales INT NULL,
+			minutos INT NULL, 
+			idEquipo INT NULL,
+			idJugador INT NULL, 
+			CONSTRAINT PK_idEstadisticasBaloncesto PRIMARY KEY(idEstadisticasBaloncesto),
+			CONSTRAINT FK_idEquipoEB FOREIGN KEY (idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
+			CONSTRAINT FK_idJugadorEB FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	)
+
+	ALTER TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto] 
+		ADD localia VARCHAR(1);
+
+END	
+	ELSE 
+		BEGIN 
+			ALTER TABLE [ScriptProyecto].[dbo].[EstadisticaBaloncesto] 
+				ADD localia VARCHAR(1);
+		END
+
+IF NOT EXISTS
+(
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'EstadisticasBaseball'
+)
+BEGIN 
+	CREATE TABLE [ScriptProyecto].[dbo].[EstadisticasBaseball]
+	(
+		idEstadisticaBaseball INT NOT NULL IDENTITY(1,1),
+		aBase INT NOT NULL, 
+		carrera INT NOT NULL,
+		hits INT NOT NULL,
+		basePorBola INT NOT NULL,
+		carrerasPermitidas INT NOT NULL, 
+		inningsLanzados INT NOT NULL,
+		hitsPermitidos INT NOT NULL, 
+		carrerasLimpias INT NOT NULL, 
+		ponches INT NOT NULL,
+		idEquipo INT NULL,
+		idJugador INT NULL 
+		CONSTRAINT PK_idEstadisticaBaseball PRIMARY KEY(idEstadisticaBaseball),
+		CONSTRAINT FK_idEquipoEBB FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
+		CONSTRAINT FK_idJugadorEBB FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	)
+
+	ALTER TABLE [ScriptProyecto].[dbo].[EstadisticasBaseball]
+		ADD localia VARCHAR(1);
+END
+	ELSE 
+		BEGIN 
+			ALTER TABLE [ScriptProyecto].[dbo].[EstadisticasBaseball]
+				ADD localia VARCHAR(1);
+		END
+
+IF NOT EXISTS
+(
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'EstadisticaFutbol'
+)
+BEGIN 
+	CREATE TABLE [ScriptProyecto].[dbo].[EstadisticaFutbol]
+	(
+		idEstadisticaFutbol INT NOT NULL IDENTITY(1,1), 
+		remates INT NULL, 
+		rematesAlArco INT NULL, 
+		posesion INT NULL, 
+		pases INT NULL, 
+		precisionPases INT NULL, 
+		faltas INT NULL, 
+		tarjetasAmarillas INT NOT NULL, 
+		tarjetasRojas INT NOT NULL, 
+		goles INT NOT NULL, 
+		poscionAdelantada INT NULL, 
+		tiroEsquina INT NULL,
+		alineacionInicial VARCHAR(10), 
+		idEquipo INT NULL, 
+		idJugador INT NULL,
+		CONSTRAINT PK_idEstadisticaFutbol PRIMARY KEY(idEstadisticaFutbol),
+		CONSTRAINT FK_idEquipoEF FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
+		CONSTRAINT FK_idJugadorEF FOREIGN KEY(idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	)
+
+	ALTER TABLE [ScriptProyecto].[dbo].[EstadisticaFutbol]
+		ADD localia VARCHAR(1);
+END 
+	ELSE 
+		BEGIN
+			ALTER TABLE [ScriptProyecto].[dbo].[EstadisticaFutbol]
+				ADD localia VARCHAR(1);
+		END 
+-- (10) Bitacora de cambios 07/11/2019
+
+IF NOT EXISTS
+(
+	SELECT *
+		FROM sysobjects sy 
+			WHERE sy.name = 'Jugador'
+)
+BEGIN 
+	CREATE TABLE [ScriptProyecto].[dbo].[Jugador]
+	(	
+		idJugador INT IDENTITY(1,1),
+		dorsal VARCHAR(50) NOT NULL,
+		fechaDebut INT NOT NULL,
+		sueldo DECIMAL(20,2) NOT NULL,
+		idPersona INT NOT NULL, 
+		idEquipo INT NOT NULL,
+		CONSTRAINT PK_idJugador PRIMARY KEY(idJugador),
+		CONSTRAINT FK_idEquipoJ FOREIGN KEY(idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
+		CONSTRAINT FK_idPersonaJ FOREIGN KEY(idPersona) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
+		
+		)
+		ALTER TABLE [ScriptProyecto].[dbo].[Jugador]
+			DROP CONSTRAINT FK_idEquipoJ
+
+		ALTER TABLE [ScriptProyecto].[dbo].[Jugador]
+			DROP COLUMN idEquipo
+END
+	ELSE 
+		BEGIN
+			ALTER TABLE [ScriptProyecto].[dbo].[Jugador]
+				DROP CONSTRAINT FK_idEquipoJ
+
+			ALTER TABLE [ScriptProyecto].[dbo].[Jugador]
+				DROP COLUMN idEquipo
+		END
+
+IF NOT EXISTS
+(
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Registro'
+)
+BEGIN 
+	CREATE TABLE [ScriptProyecto].[dbo].[Registro]
+	(	
+		idRegistro INT IDENTITY(1,1), 
+		fechaContratacion INT NOT NULL,
+		fechaFinalizaion INT NULL,
+		idEquipo INT NOT NULL,
+		idJugador INT NOT NULL,
+		CONSTRAINT PK_idRegistro PRIMARY KEY(idRegistro),
+		CONSTRAINT FK_idEquipoReg FOREIGN KEY (idEquipo) REFERENCES [ScriptProyecto].[dbo].[Equipo](idEquipo),
+		CONSTRAINT FK_idJugadorReg FOREIGN KEY (idJugador) REFERENCES [ScriptProyecto].[dbo].[Jugador](idJugador)
+	)	
+END
 --(10) Bitacora de cambios 07/11/2019
 --(11) Bitacora de cambios 08/11/2019
-ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga]
-	DROP COLUMN Anio
+IF NOT EXISTS
+(
+	SELECT*
+		FROM sysobjects sy	
+			WHERE  sy.name = 'FaseLiga'
+)
+BEGIN
+		CREATE TABLE [ScriptProyecto].[dbo].[FaseLiga]
+		(
+			idFase INT NOT NULL IDENTITY(1,1),
+			idLiga INT NOT NULL,
+			Anio INT NOT NULL,
+			CONSTRAINT FK_idFase FOREIGN KEY (idFase) REFERENCES [ScriptProyecto].[dbo].[Fase],
+			CONSTRAINT FK_idLigaFL FOREIGN KEY (idLiga) REFERENCES [ScriptProyecto].[dbo].[Liga]
+		)
 
-ALTER TABLE [ScriptProyecto].[dbo].[Liga]
-	ADD fechaInicio INT NOT NULL
+		ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga]
+			DROP COLUMN Anio
+END
+	ELSE 
+		BEGIN
+			ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga]
+				DROP COLUMN Anio
+		END 
 
-ALTER TABLE [ScriptProyecto].[dbo].[Liga]
-	ADD fechaFin INT NULL
+IF NOT EXISTS 
+(
+	SELECT *
+		FROM sysobjects sy 
+			WHERE sy.name = 'Liga'
+)
+BEGIN
+		CREATE TABLE [ScriptProyecto].[dbo].[Liga]
+		(
+			idLiga INT IDENTITY(1,1),
+			pais VARCHAR(70) NOT NULL,
+			cantidadEquiposDescendidos INT NULL,
+			CONSTRAINT PK_idLiga PRIMARY KEY(idLiga)
+		)
+
+		ALTER TABLE [ScriptProyecto].[dbo].[Liga]
+			ADD fechaInicio INT NOT NULL
+
+		ALTER TABLE [ScriptProyecto].[dbo].[Liga]
+			ADD fechaFin INT NULL
+END
+	ELSE
+		BEGIN 
+			ALTER TABLE [ScriptProyecto].[dbo].[Liga]
+				ADD fechaInicio INT NOT NULL
+
+			ALTER TABLE [ScriptProyecto].[dbo].[Liga]
+				ADD fechaFin INT NULL
+		END
 --(11) Bitacora de cambios 08/11/2019
 --(12) Bitacora de cambios 12/11/2019
-CREATE TABLE [ScriptProyecto].[dbo].[Deporte]
+IF NOT EXISTS
 (
-	idDeporte INT IDENTITY(1,1),
-	nombre VARCHAR(50),
-	CONSTRAINT PK_idDeporte PRIMARY KEY(idDeporte)
-
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Deporte'
 )
+BEGIN
+	CREATE TABLE [ScriptProyecto].[dbo].[Deporte]
+	(
+		idDeporte INT IDENTITY(1,1),
+		nombre VARCHAR(50),
+		CONSTRAINT PK_idDeporte PRIMARY KEY(idDeporte)
+	)		
+END 
 --(12) Bitacora de cambios 12/11/2019
---Hasta aqui se puede hacer la ejecucion masiva de los scripts, probado el 12/11/2019 a las 5:31 am
---(13) Bitacora de cambios 12/11/2019
-	ALTER TABLE [ScriptProyecto].[dbo].[Equipo]
-		ADD idDeporte INT NOT NULL
 
-	ALTER TABLE [ScriptProyecto].[dbo].[Equipo]
-		ADD CONSTRAINT FK_idDeporteEqu 
-			FOREIGN KEY(idDeporte) 
-				REFERENCES [ScriptProyecto].[dbo].[Deporte]
+--Hasta aqui se puede hacer la ejecucion masiva de los scripts, probado el 12/11/2019 a las 5:31 am
+
+--(13) Bitacora de cambios 12/11/2019
+IF NOT EXISTS 
+(
+	SELECT *
+		FROM sysobjects sy
+			WHERE sy.name = 'Equipo'
+)
+BEGIN
+	CREATE TABLE [ScriptProyecto].[dbo].[Equipo]
+	(
+		idEquipo INT NOT NULL IDENTITY(1,1), 
+		nombre VARCHAR(50) NOT NULL, 
+		fechaFundacion INT NOT NULL,
+		CONSTRAINT PK_idEquipo PRIMARY KEY(idEquipo)
+	)
+
+		ALTER TABLE [ScriptProyecto].[dbo].[Equipo]
+			ADD idDeporte INT NOT NULL
+
+		ALTER TABLE [ScriptProyecto].[dbo].[Equipo]
+			ADD CONSTRAINT FK_idDeporteEqu 
+				FOREIGN KEY(idDeporte) 
+					REFERENCES [ScriptProyecto].[dbo].[Deporte]
+END
+	ELSE 
+		BEGIN
+			ALTER TABLE [ScriptProyecto].[dbo].[Equipo]
+				ADD idDeporte INT NOT NULL
+
+			ALTER TABLE [ScriptProyecto].[dbo].[Equipo]
+				ADD CONSTRAINT FK_idDeporteEqu 
+					FOREIGN KEY(idDeporte) 
+						REFERENCES [ScriptProyecto].[dbo].[Deporte]
+		END
+
 --(13) Bitacora de cambios 12/11/2019
 --(14)Bitacora de cambios 12/11/2019
+
 	ALTER TABLE [ScriptProyecto].[dbo].[Liga]
 		DROP COLUMN fechaInicio
 	
