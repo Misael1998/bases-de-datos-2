@@ -1,18 +1,10 @@
-IF NOT EXISTS
-(
-	SELECT db.name 
-		FROM sysdatabases db
-		WHERE db.name = 'ScriptProyecto'	
-)
-BEGIN 
-	CREATE DATABASE ScriptProyecto
-END
-	
+use ScriptProyecto
+
 IF NOT EXISTS
 (
 	SELECT * 
-		FROM sysobjects sys 
-			WHERE sys.name = 'Persona'
+		FROM sysobjects sy 
+			WHERE sy.name = 'Persona'
 )
 BEGIN
 	CREATE TABLE [ScriptProyecto].[dbo].[Persona]
@@ -27,7 +19,8 @@ BEGIN
 		CONSTRAINT PK_idPersona PRIMARY KEY(idPersona)
 	)
 END
- 
+
+
 IF NOT EXISTS 
 (
 	SELECT *	
@@ -286,14 +279,14 @@ IF NOT EXISTS
 )
 	BEGIN
 			CREATE TABLE [ScriptProyecto].[dbo].[Partido]
-		(
-			idPartido INT IDENTITY(1,1),
-			fecha VARCHAR(10) NOT NULL,
-			horaInicio VARCHAR(4) NULL,
-			idReferee INT NULL,
-			CONSTRAINT PK_idPartido PRIMARY KEY(idPartido),
-			CONSTRAINT FK_idRefereePar FOREIGN KEY(idReferee) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
-			
+			(
+				idPartido INT IDENTITY(1,1),
+				fecha VARCHAR(10) NOT NULL,
+				horaInicio VARCHAR(4) NULL,
+				idReferee INT NULL,
+				CONSTRAINT PK_idPartido PRIMARY KEY(idPartido),
+				CONSTRAINT FK_idRefereePar FOREIGN KEY(idReferee) REFERENCES [ScriptProyecto].[dbo].[Persona](idPersona)
+			)
 			ALTER TABLE [ScriptProyecto].[dbo].[Partido]
 				ADD idEstadisticasBaloncesto INT;
 
@@ -693,7 +686,7 @@ END
 		DROP COLUMN fechaInicio
 	
 	ALTER TABLE [ScriptProyecto].[dbo].[Liga]
-		DROP COLUMN fechaInicio
+		DROP COLUMN fechaFIn
 
 	ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga]
 		ADD fechaInicio INT NOT NULL
@@ -754,7 +747,7 @@ IF NOT EXISTS
 BEGIN 
 	CREATE TABLE Estado 
 	(
-		idEstado INT, 
+		idEstado INT NOT NULL, 
 		nombre VARCHAR(50) NOT NULL,
 		descripcion  VARCHAR(200) 
 	)
@@ -778,6 +771,28 @@ END
 		)
 	END
 --(19) Bitacora de cambios 28/11/2019
+
+--(20) Bitacora de cambios 28/11/2019
+	ALTER TABLE [ScriptProyecto].[dbo].[Estado]  ADD CONSTRAINT PK_idEstado PRIMARY KEY(idEstado)
+	ALTER TABLE [ScriptProyecto].[dbo].[Jugador] ADD idEstado INT
+	ALTER TABLE [ScriptProyecto].[dbo].[Jugador] ADD CONSTRAINT FK_idEstadoJu FOREIGN KEY(idEstado) REFERENCES [ScriptProyecto].[dbo].[Estado](idEstado)
+	ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD idEstado INT NOT NULL
+	ALTER TABLE [ScriptProyecto].[dbo].[Partido] ADD CONSTRAINT FK_idPartido FOREIGN KEY (idEstado) REFERENCES [ScriptProyecto].[dbo].[Estado](idEstado)
+--(20) Bitacora de cambios 28/11/2019
+	
+ 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

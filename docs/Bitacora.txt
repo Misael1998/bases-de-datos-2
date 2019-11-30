@@ -55,4 +55,6 @@ la relacion para jugadores es para que ese pueda saber si un jugador esta lesion
 con las otras tablas
 ------------------------------------------------------------------------------------
 Cambios realizados 28/11/2019
+(20)Creacion de la columna idEstado, la razon fue descrita en la bitacora cambio numero (20) fecha 27/11/2019
 ------------------------------------------------------------------------------------
+
