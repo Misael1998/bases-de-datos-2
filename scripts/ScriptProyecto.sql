@@ -223,7 +223,7 @@ BEGIN
 	CREATE TABLE [ScriptProyecto].[dbo].[Partido]
 	(
 		idPartido INT IDENTITY(1,1),
-		fecha VARCHAR(10) NOT NULL,
+		fecha VARCHAR(10) NULL,
 		horaInicio VARCHAR(4) NULL,
 		idReferee INT NULL,
 		CONSTRAINT PK_idPartido PRIMARY KEY(idPartido),

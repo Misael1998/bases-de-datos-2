@@ -1,8 +1,15 @@
 Creacion de Triggers 
--- ---------------------------------------------------------
+-- ------------------------------------------------------------------------------------------------------------------
 (1)Creacion de un trigger que cuando se quiera seleccionar un 
 nuevo deporte para saber si ese nombre de lo que se va insertar 
 ya se ha ingresado uno parecido a este
--- ---------------------------------------------------------
-(2)
--- ---------------------------------------------------------
+-- ------------------------------------------------------------------------------------------------------------------
+(2)Creacion de un trigger que cuando se quiere eliminar un jugador, 
+en lugar de eliminarlo se tiene que asociarsele a un estado de suspendido o 
+de no habilitado 
+-- ------------------------------------------------------------------------------------------------------------------
+(3)Trigger que cuando se inserte un nuevo partido evalue la fecha del partido de cuando se va jugar y le agrege un estado,
+casos que pueden pasar 
+1._ Cuando el partido con la fecha que se ingresa es menor que ña fecha actual debera comprobar si el estado que se le quiere
+ingresar va de acuerdo con el estado, es decir que si la fecha en la que se jugara el partido es menor, ese partido 
+no puede estar "Pendiente", de ser ese el caso tendria que agregarse a estado NoDisponible o aplazado
