@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER FUNCTION [dbo].[ConversionFecha] 
+CREATE FUNCTION [dbo].[ConversionFecha] 
 (
 	@fechaSinFormato INT
 )
@@ -17,3 +17,33 @@ BEGIN
 	SELECT @fecha = RIGHT('00' + RTRIM(LTRIM(@fechaSinFormato)),8);
 	RETURN @fecha;
 END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

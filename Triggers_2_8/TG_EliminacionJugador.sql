@@ -39,12 +39,17 @@ BEGIN
 		-- ------------------------------------------------------------------------------
 		-- DE NO EXISTIR LA TABLA REGISTRO ENTONCES SE TIENE QUE CREAR EL REGISTRO
 		-- ------------------------------------------------------------------------------
-		INSERT INTO Estado(nombre,descripcion) VALUES ('Suspendido','Valor para Jugador/Equipos no disponibles')
+		INSERT INTO Estado(nombre,descripcion) VALUES 
+												(
+												'SUSPENDIDO','Valor para Jugador/Equipos/Equipos no disponibles, 
+												 cabe recalcar que este se puede usar cuando un partido
+												 fue suspendido'
+												)
 		
 		SELECT 
 			@idEstadoSuspendio = est.idEstado	
 				FROM Estado est
-					WHERE est.nombre = 'Suspendido'
+					WHERE est.nombre = 'SUSPENDIDO'
 		-- ------------------------------------------------------------------------------
 		-- ACTUALIZACION DE LA TABLA JUGADOR A UN ESTADO SUSPENDIDO 
 		-- ------------------------------------------------------------------------------
