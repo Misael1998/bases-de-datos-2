@@ -10,3 +10,5 @@ de no habilitado
 -- ------------------------------------------------------------------------------------------------------------------
 (3)Creacion de un trigger que cuando se inserte un nuevo partido que le envie al estado de pendiente despues de 
 insertarlo 
+-- ------------------------------------------------------------------------------------------------------------------
+(4)
