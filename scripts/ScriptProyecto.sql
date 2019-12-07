@@ -725,7 +725,7 @@ IF NOT EXISTS
 BEGIN
 	CREATE TABLE [ScriptProyecto].[dbo].[Temporada]
 	(
-		idTemporada INT, 
+		idTemporada INT IDENTITY(1,1), 
 		fechaInicio INT NOT NULL,
 		fechaFin INT NULL,
 		CONSTRAINT PK_idTemporada  PRIMARY KEY(idTemporada)
