@@ -1,7 +1,6 @@
 EnunciadoProcedimientosAlmacenados
 -- --------------------------------------------------------------------------------------------------------------
-(1) Procedimiento almacenado que se le envie un partido y evalue la fecha en la que estaba destinado a jugarse
-si la fecha es 
+(1) 
 -- --------------------------------------------------------------------------------------------------------------
 (2)Procedimiento almacenado que realice toda la insercion de un partido, por parcial(Es decir por intervalo) de tiempo
 -- --------------------------------------------------------------------------------------------------------------

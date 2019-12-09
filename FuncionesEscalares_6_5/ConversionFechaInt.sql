@@ -6,7 +6,7 @@
 --					Funcion que convierta de date a int
 --				>
 -- =============================================
-CREATE FUNCTION FE_ConversionAInt 
+ALTER FUNCTION FE_ConversionAInt 
 (
 	@fechaDate DATE 
 )

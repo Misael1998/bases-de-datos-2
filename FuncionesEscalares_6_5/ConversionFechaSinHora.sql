@@ -1,4 +1,4 @@
-ALTER FUNCTION [dbo].[ConversionFecha] 
+ALTER FUNCTION dbo.ConversionFecha 
 (
 	@fechaSinFormato INT
 )
@@ -11,8 +11,6 @@ BEGIN
 	SELECT @fecha = RIGHT('00' + RTRIM(LTRIM(@fechaSinFormato)),8);
 	RETURN @fecha;
 END
-
-
 
 
 

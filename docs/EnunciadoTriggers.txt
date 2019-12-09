@@ -14,7 +14,7 @@ casos que pueden pasar
 ingresar va de acuerdo con el estado, es decir que si la fecha en la que se jugara el partido es menor, ese partido 
 no puede estar "Pendiente", de ser ese el caso tendria que agregarse a estado NoDisponible o aplazado(hecho)
 -- ------------------------------------------------------------------------------------------------------------------
-()
+(4)
 
 
 
