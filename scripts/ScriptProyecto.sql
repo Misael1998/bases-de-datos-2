@@ -277,7 +277,7 @@ IF NOT EXISTS
 BEGIN 
 	CREATE TABLE [ScriptProyecto].[dbo].[FaseLiga]
 	(
-		idFase INT NOT NULL IDENTITY(1,1),
+		idFase INT NOT NULL,
 		idLiga INT NOT NULL,
 		Anio INT NOT NULL,
 		CONSTRAINT FK_idFase FOREIGN KEY (idFase) REFERENCES [ScriptProyecto].[dbo].[Fase],
@@ -742,7 +742,6 @@ ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga]
 --(15) Bitacora de cambios 12//11/2019
 --(14) Bitacora de cambios  15/11/2019
 
-select * FROM FaseLiga
 ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga] DROP FK_idLigaFL
 ALTER TABLE [ScriptProyecto].[dbo].[FaseLiga] DROP COLUMN idLiga
 
@@ -846,6 +845,7 @@ END
 
 
 
+ Fas
 
 
 
@@ -907,8 +907,7 @@ END
 
 
 
-
-
+ 
 
 
 

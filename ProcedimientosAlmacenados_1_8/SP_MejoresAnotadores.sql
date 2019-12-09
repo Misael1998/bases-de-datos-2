@@ -8,138 +8,139 @@
 --				>
 -- =============================================
 ALTER PROCEDURE SP_MejoresAnotadores 
-	@idDeporte INT,
-	@idTemporada INT
+	-- ========================================================================
+	-- PARAMETROS  REQUERIDOS
+	-- @idTemporada: Para filtrar por el deporte, dado que a partir de la liga y el deporte vammos a calcular cual es la ultima fecha de inicio, 
+	-- es decir si nosotros queremos que nuestro deporte sea baloncesto, va filtrar todas las ligas de baloncesto, pero ademas de ello vamos a calcular 
+	--  cual es la ultima temporada, para determinada liga
+	-- @idLIga: Para hacer el calculo de la liga a la cual le queremos ver cuales son los mejores equipos de esa liga 
+	-- ========================================================================
+	@idLiga INT,
+	@idDeporte INT 
 AS
 BEGIN
-	
-	-- ========================================================================================
+	-- ========================================================================
 	-- DECLARACION DE VARIABLES
-	-- ========================================================================================
-	DECLARE	@nombreDeporte VARCHAR(MAX)
+	-- @totalAnotaciones: Sirve para calcular la cantidad, de anotaciones que  realizo el equipo durante la temporada actual
+	-- @partidosJugados: Calculo de cuantos partidos sehan jugado para poder ver sacar el promedio de anotaciones por partido
+	-- @nombreDeporte: Para poder filtar por el deporte
+	-- ========================================================================
+	
+	DECLARE @totalAnotaciones INT;
+	DECLARE @partidosJugados INT; 
+	DECLARE @nombreDeporte VARCHAR(MAX);
+	DECLARE @idTemporada INT;
 
+	-- ========================================================================
+	-- Captura del dato de cual es el deporte que necesitamos
+	-- ========================================================================
 
-	SELECT @nombreDeporte = nom.nombre
-		FROM ScriptProyecto.dbo.Deporte nom
+	SELECT @nombreDeporte = dep.nombre
+		FROM ScriptProyecto.dbo.Deporte dep 
+			WHERE dep.idDeporte = @idDeporte
 
+	SELECT 
+		TOP 1
+		@idTemporada = idTemporada
+			FROM ScriptProyecto.dbo.Liga li
+			INNER JOIN ScriptProyecto.dbo.Temporada temp ON li.idLiga = li.idLiga 
+				WHERE li.idLiga = @idLiga
+					ORDER BY temp.fechaInicio		
+
+	-- ========================================================================
+	--Calculo de cuando el nombre del deporte sea Baloncesto
+	-- ========================================================================
+	
 	IF(UPPER(@nombreDeporte) = 'BALONCESTO')
 		BEGIN
-			SELECT 
-				SUM(parc.anotaciones) anotaciones
-					FROM ScriptProyecto.dbo.Equipo equ 
-					INNER JOIN ScriptProyecto.dbo.EstadisticaBaloncesto esba ON esba.idEquipo = equ.idEquipo
-					INNER JOIN ScriptProyecto.dbo.Parcial parc ON esba.idEstadisticasBaloncesto = esba.idEstadisticasBaloncesto
-					INNER JOIN ScriptProyecto.dbo.Partido par ON esba.idEstadisticasBaloncesto = esba.idEstadisticasBaloncesto
-					INNER JOIN ScriptProyecto.dbo.Fase fas ON fas.idFase = par.idFase
-					INNER JOIN ScriptProyecto.dbo.FaseLiga fali ON fali.idFase = fas.idFase	
-					INNER JOIN ScriptProyecto.dbo.Temporada tem  ON tem.idTemporada = fali.idTemporada
-						WHERE tem.idTemporada = 1
-							GROUP BY equ.idEquipo
-								ORDER BY anotaciones
-
+			INSERT INTO ScriptProyecto.dbo.MejorEquipo
+									(
+										idMejoreEquipo,
+										nombre,
+										anotaciones,
+										fechaInicio
+									)
+				SELECT 
+					TOP 10
+					equ.idEquipo,
+					equ.nombre,
+					SUM(par.anotaciones)/s1.PartidosJugados,
+					ScriptProyecto.dbo.FE_ConversionAInt(SYSDATETIME())
+						FROM ScriptProyecto.dbo.Liga li 
+						INNER JOIN ScriptProyecto.dbo.Temporada temp ON temp.idLiga = li.idLiga
+						INNER JOIN ScriptProyecto.dbo.FaseLiga fali ON fali.idTemporada = temp.idTemporada
+						INNER JOIN ScriptProyecto.dbo.Fase fa ON fa.idFase = fali.idFase
+						INNER JOIN ScriptProyecto.dbo.Partido part ON part.idFase = part.idFase
+						INNER JOIN ScriptProyecto.dbo.EstadisticaBaloncesto esba ON esba.idEstadisticasBaloncesto = part.idEstadisticasBaloncesto
+						INNER JOIN ScriptProyecto.dbo.Parcial par on par.idEstadisticasBaloncesto = esba.idEstadisticasBaloncesto
+						INNER JOIN ScriptProyecto.dbo.Equipo equ ON equ.idEquipo = esba.idEquipo
+						INNER JOIN 
+							(
+								SELECT 
+									equ.idEquipo as idEquipo,
+									COUNT(part.idPartido) as PartidosJugados
+										FROM ScriptProyecto.dbo.Equipo equ
+										INNER JOIN ScriptProyecto.dbo.EstadisticaBaloncesto esba ON esba.idEquipo = equ.idEquipo
+										INNER JOIN ScriptProyecto.dbo.Partido part ON part.idEstadisticasBaloncesto = esba.idEstadisticasBaloncesto
+											GROUP BY  equ.idEquipo
+							) s1 ON s1.idEquipo = equ.idEquipo
+								WHERE temp.idTemporada = @idtemporada
+									GROUP BY equ.idEquipo, s1.PartidosJugados,equ.nombre
 							
-		END 
+							UPDATE ScriptProyecto.dbo.MejorEquipo 
+								SET fechaInicio = ScriptProyecto.dbo.FE_ConversionAInt(SYSDATETIME()) 																
+									WHERE fechaInicio is Null
+		END
+		IF(UPPER(@nombreDeporte) = 'FUTBOL')
+			BEGIN 
 
+			INSERT INTO ScriptProyecto.dbo.MejorEquipo 
+			(
+				idMejoreEquipo,
+				nombre,
+				anotaciones,
+				fechaInicio
+			)
+					SELECT 
+						equ.idEquipo,
+						equ.nombre,
+						SUM(par.anotaciones)/s1.PartidosJugados,
+						ScriptProyecto.dbo.FE_ConversionAInt(SYSDATETIME())
+							FROM ScriptProyecto.dbo.Liga li 
+							INNER JOIN ScriptProyecto.dbo.Temporada temp ON temp.idLiga = li.idLiga
+							INNER JOIN ScriptProyecto.dbo.FaseLiga fali ON fali.idTemporada = temp.idTemporada
+							INNER JOIN ScriptProyecto.dbo.Fase fa ON fa.idFase = fali.idFase
+							INNER JOIN ScriptProyecto.dbo.Partido part ON part.idFase = part.idFase
+							INNER JOIN ScriptProyecto.dbo.EstadisticaFutbol esfu ON esfu.idEstadisticaFutbol = part.idEstadisticasFutbol
+							INNER JOIN ScriptProyecto.dbo.Parcial par on par.idEstadisticasFutbol = esfu.idEstadisticaFutbol
+							INNER JOIN ScriptProyecto.dbo.Equipo equ ON equ.idEquipo = esfu.idEquipo
+							INNER JOIN 
+								(
+									SELECT 
+										equ.idEquipo as idEquipo,
+										COUNT(part.idPartido) as PartidosJugados
+											FROM ScriptProyecto.dbo.Equipo equ
+											INNER JOIN ScriptProyecto.dbo.EstadisticaFutbol esfu ON esfu.idEquipo = equ.idEquipo
+											INNER JOIN ScriptProyecto.dbo.Partido part ON part.idEstadisticasFutbol = esfu.idEstadisticaFutbol
+												GROUP BY  equ.idEquipo
+								) s1 ON s1.idEquipo = equ.idEquipo
+									WHERE temp.idTemporada = @idTemporada
+										GROUP BY equ.idEquipo, s1.PartidosJugados,equ.nombre
 
-
-
-	SET NOCOUNT ON;
-
-
-
-	
+			END 
 END
-GO
-
-
-SELECT * FROM Parcial
 
 
 
 
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,30,1)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,30,1)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,30,1)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,30,1)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,25,2)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,25,2)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,25,2)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,25,2)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,28,3)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,28,3)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,28,3)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,28,3)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,31,4)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,31,4)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,31,4)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,31,4)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,31,5)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,31,5)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,31,5)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,31,5)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,31,6)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,31,6)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,31,6)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,31,6)
--- INSERTS DE PRIMER EQUIPO
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,30,7)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,30,7)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,30,7)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,30,7)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,25,8)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,25,8)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,25,8)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,25,8)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,28,9)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,28,9)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,28,9)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,28,9)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,31,10)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,31,10)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,31,10)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,31,10)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,31,11)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,31,11)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,31,11)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,31,11)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,31,12)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,31,12)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,31,12)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,31,12)
---INSERTS DEL TERCER EQUIPO
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,30,13)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,30,13)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,12,13)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,30,13)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,25,14)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,11,14)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,17,14)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,17,14)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,28,15)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,28,15)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,17,15)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,28,15)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,31,16)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,31,16)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,17,16)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,17,16)
--- INSERTS DEL CUARTO EQUIPO
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,18,23)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,30,23)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,30,23)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,20,23)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,28,24)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,25,24)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,28,24)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,28,24)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,28,25)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,29,25)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,29,25)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,28,25)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(1,31,26)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(2,29,26)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(3,29,26)
-INSERT INTO Parcial(numero,anotaciones,idEstadisticasBaloncesto) VALUES	(4,29,26)
+
+
+
+
+
+
+
+
 
 
 

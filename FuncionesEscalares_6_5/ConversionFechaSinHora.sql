@@ -1,10 +1,4 @@
-USE [ScriptProyecto]
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE FUNCTION [dbo].[ConversionFecha] 
+ALTER FUNCTION [dbo].[ConversionFecha] 
 (
 	@fechaSinFormato INT
 )

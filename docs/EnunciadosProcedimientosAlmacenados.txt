@@ -4,3 +4,9 @@ EnunciadoProcedimientosAlmacenados
 si la fecha es 
 -- --------------------------------------------------------------------------------------------------------------
 (2)Procedimiento almacenado que realice toda la insercion de un partido, por parcial(Es decir por intervalo) de tiempo
+-- --------------------------------------------------------------------------------------------------------------
+(3) Procedimiento almacenado que relice la insercio de los partidos, necesita los datos de la fecha del partido, 
+lugar del partido, liga del partido
+-- --------------------------------------------------------------------------------------------------------------
+(4) Procedimiento almacenado que calcule e inserte los equipo de los cuales han realizado mas anotaciones 
+en la temporada actual y los inserte dentro de una tabla la cual se va esta relacionada con una tabla 
