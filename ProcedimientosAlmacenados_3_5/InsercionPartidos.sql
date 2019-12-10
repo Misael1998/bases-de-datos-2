@@ -103,5 +103,5 @@ BEGIN
 			
 					INSERT INTO ScriptProyecto.dbo.Partido(fecha,idEstadio,idFase,idDeporte,idEstado) VALUES (@fechaPartido,@idEstadio,@idFase,@idDeporte,@idEstado)
 				END
-	SELECT 'Termine'
+
 END
