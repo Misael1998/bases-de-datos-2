@@ -1,6 +1,17 @@
-EnunciadoProcedimientosAlmacenados
+diEnunciadoProcedimientosAlmacenados
 -- --------------------------------------------------------------------------------------------------------------
-(1) 
+(1) Procedimiento almacenado que realice la insercion de un nuevo jugador, este nuevo jugador que llevar los parametros
+   obligatorios de:
+   1.) Primer Nombre 
+   2.) Segundo Nombre 
+   3.) Primer apellido 
+   4.) Segundo apellido
+   5.) Fecha de nacimiento
+   6.) Lugar de nacimiento
+   7.) pais de nacimiento
+   8.) dorsal
+   9.) fechaDeDebut 
+   10.) sueldo
 -- --------------------------------------------------------------------------------------------------------------
 (2)Procedimiento almacenado que realice toda la insercion de un partido, por parcial(Es decir por intervalo) de tiempo
 -- --------------------------------------------------------------------------------------------------------------
