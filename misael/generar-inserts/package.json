@@ -1,0 +1,14 @@
+{
+  "name": "generar-inserts",
+  "version": "1.0.0",
+  "description": "generacion de inserts para el proyecto de bases de datos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "inserts"
+  ],
+  "author": "Misael Landero",
+  "license": "MIT"
+}
