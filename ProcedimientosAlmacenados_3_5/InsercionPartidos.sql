@@ -30,14 +30,13 @@ BEGIN
 			SELECT @codigo = -1;
 			RETURN 
 		END
-
 	IF(@idFase IS NULL)
 	BEGIN
 		SELECT @mensaje = 'El idLiga no puede ser nulo';
 		SELECT @codigo = -1;
 		RETURN
 	END
-
+	
 	IF NOT EXISTS
 	(
 		SELECT fa.idFase
@@ -45,7 +44,7 @@ BEGIN
 				WHERE fa.idFase = @idFase
 	)
 	BEGIN
-		SELECT @mensaje = 'No existe ninguna liga con este id';
+		SELECT @mensaje = 'No existe ninguna fase con ese codigo';
 		SELECT @codigo = -1;
 		RETURN
 	END 
@@ -57,10 +56,12 @@ BEGIN
 				WHERE est.idEstadio = @idEstadio
 	)
 	BEGIN
-		SELECT @mensaje = 'No existe ningun id con ese nombre';
+		SELECT @mensaje = 'No existe ningun estadio con ese id ';
 		SELECT @codigo = -1;
 		RETURN
 	END
+
+	SELECT 'Hola1'
 
 	DECLARE @idEstado INT;
 
@@ -102,8 +103,5 @@ BEGIN
 			
 					INSERT INTO ScriptProyecto.dbo.Partido(fecha,idEstadio,idFase,idDeporte,idEstado) VALUES (@fechaPartido,@idEstadio,@idFase,@idDeporte,@idEstado)
 				END
+	SELECT 'Termine'
 END
-
-
-
-
